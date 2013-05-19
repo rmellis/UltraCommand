@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.Server;
+import org.bukkit.ChatColor;
 
 public class CustomCommand {
     private List<String> text;
@@ -77,7 +78,7 @@ public class CustomCommand {
         for (int i = 0; i < commands.size(); i++) {
             String s = commands.get(i);
             s = doSubs(s, player, args);
-            if (s.startswith("/")) s = s.substring(1);
+            if (s.startsWith("/")) s = s.substring(1);
             server.dispatchCommand(player, s);
         }
     }
@@ -91,7 +92,7 @@ public class CustomCommand {
         for (int i = 0; i < consoleCommands.size(); i++) {
             String s = consoleCommands.get(i);
             s = doSubs(s, player, args);
-            if (s.startswith("/")) s = s.substring(1);
+            if (s.startsWith("/")) s = s.substring(1);
             server.dispatchCommand(consoleSender, s);
         }
     }

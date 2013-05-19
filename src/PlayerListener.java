@@ -1,5 +1,6 @@
 package com.kierdavis.ultracommand;
 
+import java.util.Arrays;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
