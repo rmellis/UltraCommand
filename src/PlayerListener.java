@@ -1,4 +1,4 @@
-package com.kierdavis.kmail;
+package com.kierdavis.ultracommand;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,12 +16,12 @@ public class PlayerListener implements Listener {
         if (event.isCancelled()) return;
         
         String cmdStr = event.getMessage();
-        String[] parts = cmdStr.split(' ');
+        String[] parts = cmdStr.split(" ");
         String cmdName = parts[0].toLowerCase().substring(1);
         
         if (plugin.commands.containsKey(cmdName)) {
             CustomCommand cmd = plugin.commands.get(cmdName);
-            cmd.execute(event.getPlayer());
+            cmd.execute(event.getPlayer(), Arrays.copyOfRange(parts, 1, parts.length));
             event.setCancelled(true);
         }
     }

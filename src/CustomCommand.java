@@ -1,4 +1,4 @@
-package com.kierdavis.kmail;
+package com.kierdavis.ultracommand;
 
 import java.util.ArrayList;
 import java.util.List;
