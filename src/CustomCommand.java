@@ -27,17 +27,17 @@ public class CustomCommand {
     }
     
     public void addChat(String s) {
-        if (chat == null) text = new ArrayList<String>();
+        if (chat == null) chat = new ArrayList<String>();
         chat.add(s);
     }
     
     public void addCommand(String s) {
-        if (commands == null) text = new ArrayList<String>();
+        if (commands == null) commands = new ArrayList<String>();
         commands.add(s);
     }
     
     public void addConsoleCommand(String s) {
-        if (consoleCommands == null) text = new ArrayList<String>();
+        if (consoleCommands == null) consoleCommands = new ArrayList<String>();
         consoleCommands.add(s);
     }
     
