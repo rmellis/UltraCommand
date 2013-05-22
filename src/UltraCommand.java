@@ -179,7 +179,7 @@ public class UltraCommand extends JavaPlugin {
         return commandSection.getStringList("consoleCommands");
     }
     
-    public void clearText(String name) {
+    public boolean clearText(String name) {
         ConfigurationSection commandSection = getCommandSection(name);
         if (commandSection == null) return false;
         
@@ -187,7 +187,7 @@ public class UltraCommand extends JavaPlugin {
         return true;
     }
     
-    public void clearChat(String name) {
+    public boolean clearChat(String name) {
         ConfigurationSection commandSection = getCommandSection(name);
         if (commandSection == null) return false;
         
@@ -195,7 +195,7 @@ public class UltraCommand extends JavaPlugin {
         return true;
     }
     
-    public void clearPlayerCommands(String name) {
+    public boolean clearPlayerCommands(String name) {
         ConfigurationSection commandSection = getCommandSection(name);
         if (commandSection == null) return false;
         
@@ -203,7 +203,7 @@ public class UltraCommand extends JavaPlugin {
         return true;
     }
     
-    public void clearConsoleCommands(String name) {
+    public boolean clearConsoleCommands(String name) {
         ConfigurationSection commandSection = getCommandSection(name);
         if (commandSection == null) return false;
         
