@@ -18,11 +18,13 @@ public class UltraCommand extends JavaPlugin {
     
     public void onEnable() {
         commandsFile = new File(getDataFolder(), "commands.yml");
-        
         loadCustomCommands();
-        getLogger().info("Loaded " + commandsFile.toString());
         
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+        
+        UltraCommandExecutor cmdExec = new UltraCommandExecutor(this);
+        getCommand("ultracommand").setExector(cmdExec);
+        getCommand("uc").setExecutor(cmdExec);
     }
     
     public void onDisable() {
@@ -36,15 +38,21 @@ public class UltraCommand extends JavaPlugin {
         }
         
         commandsConfig = YamlConfiguration.loadConfiguration(commandsFile);
+        getLogger().info("Loaded " + commandsFile.toString());
     }
     
     public void saveCustomCommands() {
         try {
             commandsConfig.save(commandsFile);
+            getLogger().info("Saved " + commandsFile.toString());
         }
         catch (IOException e) {
             getLogger().severe("Could not save " + commandsFile.toString() + ": " + e.toString());
         }
+    }
+    
+    public Set<String> getCustomCommands() {
+        return getCommandsSection().getKeys();
     }
     
     public CustomCommand getCustomCommand(String name) {
@@ -83,6 +91,38 @@ public class UltraCommand extends JavaPlugin {
         commandSection.set("playerCommands", new ArrayList<String>());
         commandSection.set("consoleCommands", new ArrayList<String>());
         
+        return true;
+    }
+    
+    public boolean addText(String name, String s) {
+        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        if (commandSection == null) return false;
+        
+        commandSection.getStringList("text").add(s);
+        return true;
+    }
+    
+    public boolean addChat(String name, String s) {
+        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        if (commandSection == null) return false;
+        
+        commandSection.getStringList("chat").add(s);
+        return true;
+    }
+    
+    public boolean addPlayerCommand(String name, String s) {
+        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        if (commandSection == null) return false;
+        
+        commandSection.getStringList("playerCommands").add(s);
+        return true;
+    }
+    
+    public boolean addConsoleCommand(String name, String s) {
+        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        if (commandSection == null) return false;
+        
+        commandSection.getStringList("consoleCommands").add(s);
         return true;
     }
     

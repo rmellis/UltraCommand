@@ -3,3 +3,9 @@ version: 0.3.0
 author: Kier Davis <kierdavis@gmail.com>
 
 main: com.kierdavis.ultracommand.UltraCommand
+
+commands:
+    uc:
+        description: UltraCommand
+    ultracommand:
+        description: UltraCommand
