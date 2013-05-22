@@ -221,7 +221,7 @@ public class UltraCommand extends JavaPlugin {
     }
     
     private ConfigurationSection getCommandSection(String name) {
-        return getCommandsSection(name).getConfigurationSection(name.toLowerCase());
+        return getCommandsSection().getConfigurationSection(name.toLowerCase());
     }
     
     private void createCommandsFile() {
