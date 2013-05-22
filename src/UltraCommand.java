@@ -25,7 +25,7 @@ public class UltraCommand extends JavaPlugin {
     }
     
     public void onDisable() {
-        
+        saveCustomCommands();
     }
     
     public void loadCustomCommands() {
@@ -38,14 +38,16 @@ public class UltraCommand extends JavaPlugin {
     }
     
     public void saveCustomCommands() {
-        commandsConfig.save(commandsFile);
+        try {
+            commandsConfig.save(commandsFile);
+        }
+        catch (IOException e) {
+            getLogger().severe("Could not save " + commandsFile.toString() + ": " + e.toString());
+        }
     }
     
     public CustomCommand getCustomCommand(String name) {
-        ConfigurationSection commandsSection = commandsConfig.getConfigurationSection("commands");
-        if (commandsSection == null) return null;
-        
-        ConfigurationSection commandSection = commandsSection.getConfigurationSection(name.toLowerCase());
+        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
         if (commandSection == null) return null;
         
         CustomCommand cmd = new CustomCommand();
@@ -66,7 +68,33 @@ public class UltraCommand extends JavaPlugin {
         return cmd;
     }
     
-    public void createCommandsFile() {
+    public boolean addCustomCommand(String name) {
+        ConfigurationSection commandsSection = getCommandsSection();
+        name = name.toLowerCase();
+        
+        if (commandsSection.contains(name)) {
+            return false;
+        }
+        
+        ConfigurationSection commandSection = commandsSection.createSection(name);
+        commandSection.set("text", new ArrayList<String>());
+        commandSection.set("chat", new ArrayList<String>());
+        commandSection.set("playerCommands", new ArrayList<String>());
+        commandSection.set("consoleCommands", new ArrayList<String>());
+        
+        return true;
+    }
+    
+    private ConfigurationSection getCommandsSection() {
+        ConfigurationSection commandsSection = commandsConfig.getConfigurationSection("commands");
+        if (commandsSection == null) {
+            commandsSection = commandsConfig.createSection("commands");
+        }
+        
+        return commandsSection;
+    }
+    
+    private void createCommandsFile() {
         File parent = commandsFile.getParentFile();
         
         try {
