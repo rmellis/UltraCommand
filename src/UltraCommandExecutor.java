@@ -184,5 +184,7 @@ public class UltraCommandExecutor implements CommandExecutor {
                 sender.sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.GREEN + consoleCommands.get(i));
             }
         }
+        
+        return true;
     }
 }
