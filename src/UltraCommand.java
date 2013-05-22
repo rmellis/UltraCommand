@@ -57,7 +57,7 @@ public class UltraCommand extends JavaPlugin {
     }
     
     public CustomCommand getCustomCommand(String name) {
-        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        ConfigurationSection commandSection = getCommandSection(name);
         if (commandSection == null) return null;
         
         CustomCommand cmd = new CustomCommand();
@@ -95,8 +95,24 @@ public class UltraCommand extends JavaPlugin {
         return true;
     }
     
+    public boolean hasCustomCommand(String name) {
+        return getCommandSection(name) != null;
+    }
+    
+    public boolean removeCustomCommand(String name) {
+        ConfigurationSection commandsSection = getCommandsSection();
+        name = name.toLowerCase();
+        
+        if (!commandsSection.contains(name)) {
+            return false;
+        }
+        
+        commandsSection.set(name, null);
+        return true;
+    }
+    
     public boolean addText(String name, String s) {
-        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        ConfigurationSection commandSection = getCommandSection(name);
         if (commandSection == null) return false;
         
         List<String> l = commandSection.getStringList("text");
@@ -106,7 +122,7 @@ public class UltraCommand extends JavaPlugin {
     }
     
     public boolean addChat(String name, String s) {
-        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        ConfigurationSection commandSection = getCommandSection(name);
         if (commandSection == null) return false;
         
         List<String> l = commandSection.getStringList("chat");
@@ -116,7 +132,7 @@ public class UltraCommand extends JavaPlugin {
     }
     
     public boolean addPlayerCommand(String name, String s) {
-        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        ConfigurationSection commandSection = getCommandSection(name);
         if (commandSection == null) return false;
         
         List<String> l = commandSection.getStringList("playerCommands");
@@ -126,7 +142,7 @@ public class UltraCommand extends JavaPlugin {
     }
     
     public boolean addConsoleCommand(String name, String s) {
-        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        ConfigurationSection commandSection = getCommandSection(name);
         if (commandSection == null) return false;
         
         List<String> l = commandSection.getStringList("consoleCommands");
@@ -135,36 +151,60 @@ public class UltraCommand extends JavaPlugin {
         return true;
     }
     
-    public boolean hasCustomCommand(String name) {
-        return getCommandsSection().getConfigurationSection(name.toLowerCase()) != null;
-    }
-    
     public List<String> getText(String name) {
-        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        ConfigurationSection commandSection = getCommandSection(name);
         if (commandSection == null) return null;
         
         return commandSection.getStringList("text");
     }
     
     public List<String> getChat(String name) {
-        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        ConfigurationSection commandSection = getCommandSection(name);
         if (commandSection == null) return null;
         
         return commandSection.getStringList("chat");
     }
     
     public List<String> getPlayerCommands(String name) {
-        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        ConfigurationSection commandSection = getCommandSection(name);
         if (commandSection == null) return null;
         
         return commandSection.getStringList("playerCommands");
     }
     
     public List<String> getConsoleCommands(String name) {
-        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        ConfigurationSection commandSection = getCommandSection(name);
         if (commandSection == null) return null;
         
         return commandSection.getStringList("consoleCommands");
+    }
+    
+    public List<String> clearText(String name) {
+        ConfigurationSection commandSection = getCommandSection(name);
+        if (commandSection == null) return null;
+        
+        return commandSection.set("text", new ArrayList<String>());
+    }
+    
+    public List<String> clearChat(String name) {
+        ConfigurationSection commandSection = getCommandSection(name);
+        if (commandSection == null) return null;
+        
+        return commandSection.set("chat", new ArrayList<String>());
+    }
+    
+    public List<String> clearPlayerCommands(String name) {
+        ConfigurationSection commandSection = getCommandSection(name);
+        if (commandSection == null) return null;
+        
+        return commandSection.set("playerCommands", new ArrayList<String>());
+    }
+    
+    public List<String> clearConsoleCommands(String name) {
+        ConfigurationSection commandSection = getCommandSection(name);
+        if (commandSection == null) return null;
+        
+        return commandSection.set("consoleCommands", new ArrayList<String>());
     }
     
     private ConfigurationSection getCommandsSection() {
@@ -174,6 +214,10 @@ public class UltraCommand extends JavaPlugin {
         }
         
         return commandsSection;
+    }
+    
+    private ConfigurationSection getCommandSection(String name) {
+        return getCommandSection(name);
     }
     
     private void createCommandsFile() {

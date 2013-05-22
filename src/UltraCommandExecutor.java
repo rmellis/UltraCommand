@@ -27,6 +27,7 @@ public class UltraCommandExecutor implements CommandExecutor {
         
         if (name.equalsIgnoreCase("add")) return doAdd(sender, remainingArgs);
         if (name.equalsIgnoreCase("list")) return doList(sender, remainingArgs);
+        if (name.equalsIgnoreCase("remove")) return doRemove(sender, remainingArgs);
         
         printUsage(sender);
         return false;
@@ -40,6 +41,7 @@ public class UltraCommandExecutor implements CommandExecutor {
         sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add pcmd " + ChatColor.RED + "<name> <command>");
         sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add ccmd " + ChatColor.RED + "<name> <command>");
         sender.sendMessage("  " + ChatColor.DARK_RED + "/uc list [name]");
+        sender.sendMessage("  " + ChatColor.DARK_RED + "/uc remove " + ChatColor.RED + "[text|chat|pcmd|ccmd] <name>");
     }
     
     private boolean doAdd(CommandSender sender, String[] args) {
@@ -78,18 +80,23 @@ public class UltraCommandExecutor implements CommandExecutor {
         
         String rest = restBuilder.toString();
         boolean success;
+        String thing;
         
         if (subcmd.equalsIgnoreCase("text")) {
             success = plugin.addText(name, rest);
+            thing = "Text";
         }
         else if (subcmd.equalsIgnoreCase("chat")) {
             success = plugin.addChat(name, rest);
+            thing = "Chat";
         }
         else if (subcmd.equalsIgnoreCase("pcmd")) {
             success = plugin.addPlayerCommand(name, rest);
+            thing = "Player command";
         }
         else if (subcmd.equalsIgnoreCase("ccmd")) {
             success = plugin.addConsoleCommand(name, rest);
+            thing = "Console command";
         }
         else {
             sender.sendMessage(ChatColor.YELLOW + "Usage (" + ChatColor.RED + "<required> [optional]" + ChatColor.YELLOW + ":");
@@ -102,7 +109,7 @@ public class UltraCommandExecutor implements CommandExecutor {
         }
             
         if (success) {
-            sender.sendMessage(ChatColor.YELLOW + "Item added to command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
+            sender.sendMessage(ChatColor.YELLOW + thing + " added to command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
         }
         else {
             sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
@@ -187,5 +194,64 @@ public class UltraCommandExecutor implements CommandExecutor {
         }
         
         return true;
+    }
+    
+    private boolean doRemove(CommandSender sender, String[] args) {
+        if (args.length < 1) {
+            sender.sendMessage(ChatColor.YELLOW + "Usage (" + ChatColor.RED + "<required> [optional]" + ChatColor.YELLOW + ":");
+            sender.sendMessage("  " + ChatColor.DARK_RED + "/uc remove " + ChatColor.RED + "[text|chat|pcmd|ccmd] <name>");
+            return false;
+        }
+        
+        if (args.length == 1) {
+            String name = args[0];
+            boolean success = plugin.removeCustomCommand(name);
+            
+            if (success) {
+                sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " removed.");
+            }
+            else {
+                sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
+            }
+            
+            return success;
+        }
+        
+        String subcmd = args[0];
+        String name = args[1];
+        
+        boolean success;
+        String things;
+        
+        if (subcmd.equalsIgnoreCase("text")) {
+            success = plugin.clearText(name);
+            things = "Text";
+        }
+        else if (subcmd.equalsIgnoreCase("chat")) {
+            success = plugin.clearChat(name);
+            things = "Chat";
+        }
+        else if (subcmd.equalsIgnoreCase("pcmd")) {
+            success = plugin.clearPlayerCommand(name);
+            things = "Player commands";
+        }
+        else if (subcmd.equalsIgnoreCase("ccmd")) {
+            success = plugin.clearConsoleCommand(name);
+            things = "Console commands";
+        }
+        else {
+            sender.sendMessage(ChatColor.YELLOW + "Usage (" + ChatColor.RED + "<required> [optional]" + ChatColor.YELLOW + ":");
+            sender.sendMessage("  " + ChatColor.DARK_RED + "/uc remove " + ChatColor.RED + "[text|chat|pcmd|ccmd] <name>");
+            return false;
+        }
+            
+        if (success) {
+            sender.sendMessage(ChatColor.YELLOW + things + " cleared for command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
+        }
+        else {
+            sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
+        }
+        
+        return success;
     }
 }
