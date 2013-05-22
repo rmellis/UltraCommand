@@ -152,7 +152,7 @@ public class UltraCommandExecutor implements CommandExecutor {
         else {
             sender.sendMessage("  " + ChatColor.YELLOW + "Text:");
             for (int i = 0; i < text.size(); i++) {
-                sender.sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes(text.get(i)));
+                sender.sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', text.get(i)));
             }
         }
         
@@ -162,7 +162,7 @@ public class UltraCommandExecutor implements CommandExecutor {
         else {
             sender.sendMessage("  " + ChatColor.YELLOW + "Chat:");
             for (int i = 0; i < chat.size(); i++) {
-                sender.sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes(chat.get(i)));
+                sender.sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', chat.get(i)));
             }
         }
         
