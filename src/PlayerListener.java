@@ -13,6 +13,7 @@ public class PlayerListener implements Listener {
         plugin = plugin_;
     }
     
+    @EventHandler
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
         plugin.getLogger().info(event.getPlayer().getName() + ": " + event.getMessage());
         
