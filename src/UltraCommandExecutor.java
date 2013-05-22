@@ -32,7 +32,9 @@ public class UltraCommandExecutor implements CommandExecutor {
         
         if (name.equalsIgnoreCase("add")) return doAdd(sender, remainingArgs);
         if (name.equalsIgnoreCase("list")) return doList(sender, remainingArgs);
+        if (name.equalsIgnoreCase("reload")) return doReload(sender, remainingArgs);
         if (name.equalsIgnoreCase("remove")) return doRemove(sender, remainingArgs);
+        if (name.equalsIgnoreCase("save")) return doSave(sender, remainingArgs);
         
         printUsage(sender);
         return false;
@@ -46,7 +48,9 @@ public class UltraCommandExecutor implements CommandExecutor {
         sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add pcmd " + ChatColor.RED + "<name> <command>");
         sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add ccmd " + ChatColor.RED + "<name> <command>");
         sender.sendMessage("  " + ChatColor.DARK_RED + "/uc list [name]");
+        sender.sendMessage("  " + ChatColor.DARK_RED + "/uc reload");
         sender.sendMessage("  " + ChatColor.DARK_RED + "/uc remove " + ChatColor.RED + "[text|chat|pcmd|ccmd] <name>");
+        sender.sendMessage("  " + ChatColor.DARK_RED + "/uc save");
     }
     
     private boolean doAdd(CommandSender sender, String[] args) {
@@ -201,6 +205,12 @@ public class UltraCommandExecutor implements CommandExecutor {
         return true;
     }
     
+    private boolean doReload(CommandSender sender, String[] args) {
+        plugin.loadCustomCommands();
+        sender.sendMessage(ChatColor.YELLOW + "Commands configuration reloaded.");
+        return true;
+    }
+    
     private boolean doRemove(CommandSender sender, String[] args) {
         if (args.length < 1) {
             sender.sendMessage(ChatColor.YELLOW + "Usage (" + ChatColor.RED + "<required> [optional]" + ChatColor.YELLOW + ":");
@@ -258,5 +268,11 @@ public class UltraCommandExecutor implements CommandExecutor {
         }
         
         return success;
+    }
+    
+    private boolean doSave(CommandSender sender, String[] args) {
+        plugin.saveCustomCommands();
+        sender.sendMessage(ChatColor.YELLOW + "Commands configuration saved.");
+        return true;
     }
 }
