@@ -99,7 +99,9 @@ public class UltraCommand extends JavaPlugin {
         ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
         if (commandSection == null) return false;
         
-        commandSection.getStringList("text").add(s);
+        List<String> l = commandSection.getStringList("text");
+        l.add(s);
+        commandSection.set("text", l);
         return true;
     }
     
@@ -107,7 +109,9 @@ public class UltraCommand extends JavaPlugin {
         ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
         if (commandSection == null) return false;
         
-        commandSection.getStringList("chat").add(s);
+        List<String> l = commandSection.getStringList("chat");
+        l.add(s);
+        commandSection.set("chat", l);
         return true;
     }
     
@@ -115,7 +119,9 @@ public class UltraCommand extends JavaPlugin {
         ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
         if (commandSection == null) return false;
         
-        commandSection.getStringList("playerCommands").add(s);
+        List<String> l = commandSection.getStringList("playerCommands");
+        l.add(s);
+        commandSection.set("playerCommands", l);
         return true;
     }
     
@@ -123,7 +129,9 @@ public class UltraCommand extends JavaPlugin {
         ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
         if (commandSection == null) return false;
         
-        commandSection.getStringList("consoleCommands").add(s);
+        List<String> l = commandSection.getStringList("consoleCommands");
+        l.add(s);
+        commandSection.set("consoleCommands", l);
         return true;
     }
     
