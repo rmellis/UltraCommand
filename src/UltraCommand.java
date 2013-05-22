@@ -52,13 +52,13 @@ public class UltraCommand extends JavaPlugin {
             if (!commandsFile.exists()) {
                 boolean b = commandsFile.createNewFile();
                 if (b) {
-                    plugin.getLogger().info("Created " + commandsFile.toString());
+                    getLogger().info("Created " + commandsFile.toString());
                 }
             }
         }
         
         catch (IOException e) {
-            plugin.getLogger().warning("Could not create " + commandsFile.toString() + ": " + e.toString());
+            getLogger().warning("Could not create " + commandsFile.toString() + ": " + e.toString());
         }
     }
     
