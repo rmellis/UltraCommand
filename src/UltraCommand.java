@@ -16,7 +16,7 @@ public class UltraCommand extends JavaPlugin {
     public void onEnable() {
         commands = new HashMap<String, CustomCommand>();
         
-        loadCommands();
+        loadCustomCommands();
         getLogger().info("Loaded " + Integer.toString(commands.size()) + " commands.");
         
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
@@ -26,22 +26,25 @@ public class UltraCommand extends JavaPlugin {
         
     }
     
-    public CustomCommand getCommand(String name) {
+    public CustomCommand getCustomCommand(String name) {
         return commands.get(name.toLowerCase());
     }
     
-    public void addCommand(String name, CustomCommand cmd) {
+    public void addCustomCommand(String name, CustomCommand cmd) {
         commands.put(name.toLowerCase(), cmd);
     }
     
-    public void removeCommand(String name) {
+    public void removeCustomCommand(String name) {
         commands.remove(name);
     }
     
-    public void loadCommands() {
+    public void loadCustomCommands() {
         File commandsFile = new File(getDataFolder(), "commands.yml");
         
-        if (!commandsFile.exists()) return;
+        if (!commandsFile.exists()) {
+            commandsFile.createNewFile();
+            return;
+        }
         
         FileConfiguration commandsConfig = YamlConfiguration.loadConfiguration(commandsFile);
         ConfigurationSection commandsSection = commandsConfig.getConfigurationSection("commands");
@@ -85,7 +88,7 @@ public class UltraCommand extends JavaPlugin {
                 }
             }
             
-            addCommand(cmdName, cmd);
+            addCustomCommand(cmdName, cmd);
         }
     }
 }
