@@ -1,10 +1,11 @@
 package com.kierdavis.ultracommand;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -42,7 +43,11 @@ public class UltraCommand extends JavaPlugin {
         File commandsFile = new File(getDataFolder(), "commands.yml");
         
         if (!commandsFile.exists()) {
-            commandsFile.createNewFile();
+            try {
+                commandsFile.createNewFile();
+            }
+            catch (IOException e) {}
+            
             return;
         }
         
