@@ -2,6 +2,7 @@ package com.kierdavis.ultracommand;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Set;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -110,12 +111,20 @@ public class UltraCommandExecutor implements CommandExecutor {
     }
     
     private boolean doList(CommandSender sender, String[] args) {
-        Iterator<String> it = plugin.getCustomCommands().iterator();
-        sender.sendMessage(ChatColor.YELLOW + "Defined commands:");
+        Set<String> cmds = plugin.getCustomCommands();
         
-        while (it.hasNext()) {
-            String name = (String) it.next();
-            sender.sendMessage("  " + ChatColor.YELLOW + "- " + ChatColor.GREEN + name);
+        if (cmds.size() == 0) {
+            sender.sendMessage(ChatColor.YELLOW + "No defined commands.");
+        }
+        
+        else {
+            Iterator<String> it = cmds.iterator();
+            sender.sendMessage(ChatColor.YELLOW + "Defined commands:");
+            
+            while (it.hasNext()) {
+                String name = (String) it.next();
+                sender.sendMessage("  " + ChatColor.YELLOW + "- " + ChatColor.GREEN + name);
+            }
         }
         
         return true;
