@@ -17,6 +17,11 @@ public class UltraCommandExecutor implements CommandExecutor {
     }
     
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (!sender.hasPermission("ultracommand.configure")) {
+            sender.sendMessage(ChatColor.YELLOW + "You don't have permission for this command (ultracommand.configure)");
+            return false;
+        }
+        
         if (args.length == 0) {
             printUsage(sender);
             return false;
