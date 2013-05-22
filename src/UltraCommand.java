@@ -19,7 +19,7 @@ public class UltraCommand extends JavaPlugin {
         commandsFile = new File(getDataFolder(), "commands.yml");
         
         loadCustomCommands();
-        getLogger().info("Loaded " + Integer.toString(commands.size()) + " commands.");
+        getLogger().info("Loaded " + commandsFile.toString());
         
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
     }
