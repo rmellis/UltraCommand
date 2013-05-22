@@ -13,9 +13,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class UltraCommand extends JavaPlugin {
     private Map<String, CustomCommand> commands;
+    private File commandsFile;
     
     public void onEnable() {
         commands = new HashMap<String, CustomCommand>();
+        commandsFile = new File(getDataFolder(), "commands.yml");
         
         loadCustomCommands();
         getLogger().info("Loaded " + Integer.toString(commands.size()) + " commands.");
@@ -39,15 +41,30 @@ public class UltraCommand extends JavaPlugin {
         commands.remove(name);
     }
     
-    public void loadCustomCommands() {
-        File commandsFile = new File(getDataFolder(), "commands.yml");
+    public void createCommandsFile() {
+        File parent = commandsFile.getParentFile();
         
-        if (!commandsFile.exists()) {
-            try {
-                commandsFile.createNewFile();
+        try {
+            if (!parent.exists()) {
+                parent.mkdirs();
             }
-            catch (IOException e) {}
             
+            if (!commandsFile.exists()) {
+                boolean b = commandsFile.createNewFile();
+                if (b) {
+                    plugin.getLogger().info("Created " + commandsFile.toString());
+                }
+            }
+        }
+        
+        catch (IOException e) {
+            plugin.getLogger().warning("Could not create " + commandsFile.toString() + ": " + e.toString());
+        }
+    }
+    
+    public void loadCustomCommands() {
+        if (!commandsFile.exists()) {
+            createCommandsFile();
             return;
         }
         
