@@ -34,11 +34,11 @@ public class UltraCommandExecutor implements CommandExecutor {
     public void printUsage(CommandSender sender) {
         sender.sendMessage(ChatColor.YELLOW + "Usage (" + ChatColor.RED + "<required> [optional]" + ChatColor.YELLOW + ":");
         sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add " + ChatColor.RED + "<name>");
-        sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add text " + ChatColor.RED + "<text>");
-        sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add chat " + ChatColor.RED + "<chat>");
-        sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add pcmd " + ChatColor.RED + "<command>");
-        sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add ccmd " + ChatColor.RED + "<command>");
-        sender.sendMessage("  " + ChatColor.DARK_RED + "/uc list");
+        sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add text " + ChatColor.RED + "<name> <text>");
+        sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add chat " + ChatColor.RED + "<name> <chat>");
+        sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add pcmd " + ChatColor.RED + "<name> <command>");
+        sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add ccmd " + ChatColor.RED + "<name> <command>");
+        sender.sendMessage("  " + ChatColor.DARK_RED + "/uc list [name]");
     }
     
     private boolean doAdd(CommandSender sender, String[] args) {
@@ -71,7 +71,7 @@ public class UltraCommandExecutor implements CommandExecutor {
         StringBuilder restBuilder = new StringBuilder();
         
         for (int i = 2; i < args.length; i++) {
-            if (i == 2) restBuilder.append(" ");
+            if (i != 2) restBuilder.append(" ");
             restBuilder.append(args[i]);
         }
         
@@ -111,22 +111,78 @@ public class UltraCommandExecutor implements CommandExecutor {
     }
     
     private boolean doList(CommandSender sender, String[] args) {
-        Set<String> cmds = plugin.getCustomCommands();
-        
-        if (cmds.size() == 0) {
-            sender.sendMessage(ChatColor.YELLOW + "No defined commands.");
+        if (args.length == 0) {
+            Set<String> cmds = plugin.getCustomCommands();
+            
+            if (cmds.size() == 0) {
+                sender.sendMessage(ChatColor.YELLOW + "No defined commands.");
+            }
+            
+            else {
+                Iterator<String> it = cmds.iterator();
+                sender.sendMessage(ChatColor.YELLOW + "Defined commands:");
+                
+                while (it.hasNext()) {
+                    String name = (String) it.next();
+                    sender.sendMessage("  " + ChatColor.YELLOW + "- " + ChatColor.GREEN + name);
+                }
+            }
+            
+            return true;
         }
         
+        String name = args[0];
+        
+        if (!plugin.hasCustomCommand(name)) {
+            sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
+            return false;
+        }
+        
+        List<String> text = plugin.getText(name);
+        List<String> chat = plugin.getChat(name);
+        List<String> playerCommands = plugin.getPlayerCommands(name);
+        List<String> consoleCommands = plugin.getConsoleCommands(name);
+        
+        sender.sendMessage(ChatColor.GREEN + name + ChatColor.YELLOW + ":");
+        
+        if (text == null || text.size() == 0) {
+            sender.sendMessage("  " + ChatColor.YELLOW + "No text for this command.");
+        }
         else {
-            Iterator<String> it = cmds.iterator();
-            sender.sendMessage(ChatColor.YELLOW + "Defined commands:");
-            
-            while (it.hasNext()) {
-                String name = (String) it.next();
-                sender.sendMessage("  " + ChatColor.YELLOW + "- " + ChatColor.GREEN + name);
+            sender.sendMessage("  " + ChatColor.YELLOW + "Text:");
+            for (int i = 0; i < text.size(); i++) {
+                sender.sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.WHITE + text.get(i));
             }
         }
         
-        return true;
+        if (chat == null || chat.size() == 0) {
+            sender.sendMessage("  " + ChatColor.YELLOW + "No chat for this command.");
+        }
+        else {
+            sender.sendMessage("  " + ChatColor.YELLOW + "Chat:");
+            for (int i = 0; i < chat.size(); i++) {
+                sender.sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.WHITE + chat.get(i));
+            }
+        }
+        
+        if (playerCommands == null || playerCommands.size() == 0) {
+            sender.sendMessage("  " + ChatColor.YELLOW + "No player commands for this command.");
+        }
+        else {
+            sender.sendMessage("  " + ChatColor.YELLOW + "Player commands:");
+            for (int i = 0; i < playerCommands.size(); i++) {
+                sender.sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.GREEN + playerCommands.get(i));
+            }
+        }
+        
+        if (consoleCommands == null || consoleCommands.size() == 0) {
+            sender.sendMessage("  " + ChatColor.YELLOW + "No console commands for this command.");
+        }
+        else {
+            sender.sendMessage("  " + ChatColor.YELLOW + "Console commands:");
+            for (int i = 0; i < consoleCommands.size(); i++) {
+                sender.sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.GREEN + consoleCommands.get(i));
+            }
+        }
     }
 }

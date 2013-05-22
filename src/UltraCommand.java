@@ -135,6 +135,38 @@ public class UltraCommand extends JavaPlugin {
         return true;
     }
     
+    public boolean hasCustomCommand(String name) {
+        return getCommandsSection().getConfigurationSection(name.toLowerCase()) != null;
+    }
+    
+    public List<String> getText(String name) {
+        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        if (commandSection == null) return null;
+        
+        return commandSection.getStringList("text");
+    }
+    
+    public List<String> getChat(String name) {
+        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        if (commandSection == null) return null;
+        
+        return commandSection.getStringList("chat");
+    }
+    
+    public List<String> getPlayerCommands(String name) {
+        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        if (commandSection == null) return null;
+        
+        return commandSection.getStringList("playerCommands");
+    }
+    
+    public List<String> getConsoleCommands(String name) {
+        ConfigurationSection commandSection = getCommandsSection().getConfigurationSection(name.toLowerCase());
+        if (commandSection == null) return null;
+        
+        return commandSection.getStringList("consoleCommands");
+    }
+    
     private ConfigurationSection getCommandsSection() {
         ConfigurationSection commandsSection = commandsConfig.getConfigurationSection("commands");
         if (commandsSection == null) {
