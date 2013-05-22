@@ -11,6 +11,7 @@ import java.util.Set;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -275,5 +276,25 @@ public class UltraCommand extends JavaPlugin {
     
     public boolean isDirty() {
         return dirty;
+    }
+    
+    public boolean doCommand(Player player, String[] parts) {
+        String cmdName = parts[0];
+        CustomCommand cmd = getCustomCommand(cmdName);
+        
+        if (cmdName.startsWith("/")) cmdName = cmdName.substring(1);
+        
+        if (cmd != null) {
+            String perm = "ultracommand.commands." + cmdName;
+            if (!player.hasPermission(perm) && !player.hasPermission("ultracommand.commands.*")) {
+                player.sendMessage(ChatColor.YELLOW + "You don't have permission for this command (" + perm + ")");
+                return true;
+            }
+            
+            cmd.execute(player, Arrays.copyOfRange(parts, 1, parts.length));
+            return true;
+        }
+        
+        return false;
     }
 }

@@ -2,7 +2,6 @@ package com.kierdavis.ultracommand;
 
 import java.util.Arrays;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -18,22 +17,9 @@ public class PlayerListener implements Listener {
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
         if (event.isCancelled()) return;
         
-        Player player = event.getPlayer();
-        String cmdStr = event.getMessage();
-        String[] parts = cmdStr.split(" ");
-        String cmdName = parts[0].substring(1);
-        CustomCommand cmd = plugin.getCustomCommand(cmdName);
+        String[] parts = event.getMessage().split(" ");
+        boolean success = plugin.doCommand(event.getPlayer(), parts);
         
-        if (cmd != null) {
-            event.setCancelled(true);
-            
-            String perm = "ultracommand.commands." + cmdName;
-            if (!player.hasPermission(perm) && !player.hasPermission("ultracommand.commands.*")) {
-                player.sendMessage(ChatColor.YELLOW + "You don't have permission for this command (" + perm + ")");
-                return;
-            }
-            
-            cmd.execute(player, Arrays.copyOfRange(parts, 1, parts.length));
-        }
+        event.setCancelled(success); // If we succeeded, block the event from further processing.
     }
 }

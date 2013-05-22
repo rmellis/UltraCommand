@@ -1,5 +1,5 @@
 name: UltraCommand
-version: 0.3.9
+version: 0.3.10
 author: Kier Davis <kierdavis@gmail.com>
 
 main: com.kierdavis.ultracommand.UltraCommand
@@ -16,8 +16,8 @@ permissions:
         default: op
     
     ultracommand.commands.*:
-        description: Gives access to all commands defined with this plugin.
+        description: Gives access to all custom commands defined with this plugin.
         default: op
     
     ultracommand.commands.<name>:
-        description: Gives access to the command named <name> (must be defined with this plugin).
+        description: Gives access to the custom command named <name>.
