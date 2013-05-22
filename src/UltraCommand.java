@@ -11,8 +11,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class UltraCommand extends JavaPlugin {
-    private File commandsFile;
-    private FileConfiguration commandsConfig;
     private Map<String, CustomCommand> commands;
     
     public void onEnable() {
@@ -41,12 +39,15 @@ public class UltraCommand extends JavaPlugin {
     }
     
     public void loadCommands() {
-        commands.clear();
-        commandsFile = new File(getDataFolder(), "commands.yml");
-        commandsConfig = YamlConfiguration.loadConfiguration(commandsFile);
+        File commandsFile = new File(getDataFolder(), "commands.yml");
         
+        if (!commandsFile.exists()) return;
+        
+        FileConfiguration commandsConfig = YamlConfiguration.loadConfiguration(commandsFile);
         ConfigurationSection commandsSection = commandsConfig.getConfigurationSection("commands");
         Iterator<String> keys = commandsSection.getKeys(false).iterator();
+        
+        commands.clear();
         
         while (keys.hasNext()) {
             String cmdName = (String) keys.next();
