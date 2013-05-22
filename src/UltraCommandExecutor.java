@@ -111,7 +111,7 @@ public class UltraCommandExecutor implements CommandExecutor {
     
     private boolean doList(CommandSender sender, String[] args) {
         Iterator<String> it = plugin.getCustomCommands().iterator();
-        sender.sendMessage(ChatColor.YELLOW + "Defined commands:")
+        sender.sendMessage(ChatColor.YELLOW + "Defined commands:");
         
         while (it.hasNext()) {
             String name = (String) it.next();
