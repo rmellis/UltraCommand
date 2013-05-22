@@ -21,6 +21,22 @@ public class CustomCommand {
         consoleCommands = null;
     }
     
+    public void setText(List<String> l) {
+        text = l;
+    }
+    
+    public void setChat(List<String> l) {
+        chat = l;
+    }
+    
+    public void setPlayerCommands(List<String> l) {
+        playerCommands = l;
+    }
+    
+    public void setConsoleCommands(List<String> l) {
+        consoleCommands = l;
+    }
+    
     public void addText(String s) {
         if (text == null) text = new ArrayList<String>();
         text.add(s);
