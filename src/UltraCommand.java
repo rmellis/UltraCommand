@@ -16,6 +16,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class UltraCommand extends JavaPlugin {
     private File commandsFile;
     private FileConfiguration commandsConfig;
+    private BukkitTask saveCommandsTask;
+    private boolean dirty;
     
     public void onEnable() {
         commandsFile = new File(getDataFolder(), "commands.yml");
@@ -26,9 +28,13 @@ public class UltraCommand extends JavaPlugin {
         UltraCommandExecutor cmdExec = new UltraCommandExecutor(this);
         getCommand("ultracommand").setExecutor(cmdExec);
         getCommand("uc").setExecutor(cmdExec);
+        
+        dirty = false;
+        saveCommandsTask = new SaveCommandsTask(this).runTaskTimer(this, 20 * 60, 20 * 60); // Check every minute.
     }
     
     public void onDisable() {
+        saveCommandsTask.cancel();
         saveCustomCommands();
     }
     
@@ -45,8 +51,10 @@ public class UltraCommand extends JavaPlugin {
     public void saveCustomCommands() {
         try {
             commandsConfig.save(commandsFile);
+            dirty = false;
             getLogger().info("Saved " + commandsFile.toString());
         }
+        
         catch (IOException e) {
             getLogger().severe("Could not save " + commandsFile.toString() + ": " + e.toString());
         }
@@ -92,6 +100,7 @@ public class UltraCommand extends JavaPlugin {
         commandSection.set("playerCommands", new ArrayList<String>());
         commandSection.set("consoleCommands", new ArrayList<String>());
         
+        dirty = true;
         return true;
     }
     
@@ -108,6 +117,8 @@ public class UltraCommand extends JavaPlugin {
         }
         
         commandsSection.set(name, null);
+        
+        dirty = true;
         return true;
     }
     
@@ -118,6 +129,8 @@ public class UltraCommand extends JavaPlugin {
         List<String> l = commandSection.getStringList("text");
         l.add(s);
         commandSection.set("text", l);
+        
+        dirty = true;
         return true;
     }
     
@@ -128,6 +141,8 @@ public class UltraCommand extends JavaPlugin {
         List<String> l = commandSection.getStringList("chat");
         l.add(s);
         commandSection.set("chat", l);
+        
+        dirty = true;
         return true;
     }
     
@@ -138,6 +153,8 @@ public class UltraCommand extends JavaPlugin {
         List<String> l = commandSection.getStringList("playerCommands");
         l.add(s);
         commandSection.set("playerCommands", l);
+        
+        dirty = true;
         return true;
     }
     
@@ -148,6 +165,8 @@ public class UltraCommand extends JavaPlugin {
         List<String> l = commandSection.getStringList("consoleCommands");
         l.add(s);
         commandSection.set("consoleCommands", l);
+        
+        dirty = true;
         return true;
     }
     
@@ -184,6 +203,8 @@ public class UltraCommand extends JavaPlugin {
         if (commandSection == null) return false;
         
         commandSection.set("text", new ArrayList<String>());
+        
+        dirty = true;
         return true;
     }
     
@@ -192,6 +213,8 @@ public class UltraCommand extends JavaPlugin {
         if (commandSection == null) return false;
         
         commandSection.set("chat", new ArrayList<String>());
+        
+        dirty = true;
         return true;
     }
     
@@ -200,6 +223,8 @@ public class UltraCommand extends JavaPlugin {
         if (commandSection == null) return false;
         
         commandSection.set("playerCommands", new ArrayList<String>());
+        
+        dirty = true;
         return true;
     }
     
@@ -208,6 +233,8 @@ public class UltraCommand extends JavaPlugin {
         if (commandSection == null) return false;
         
         commandSection.set("consoleCommands", new ArrayList<String>());
+        
+        dirty = true;
         return true;
     }
     
@@ -243,5 +270,9 @@ public class UltraCommand extends JavaPlugin {
         catch (IOException e) {
             getLogger().warning("Could not create " + commandsFile.toString() + ": " + e.toString());
         }
+    }
+    
+    public boolean isDirty() {
+        return dirty;
     }
 }
