@@ -1,4 +1,4 @@
-bppackage com.kierdavis.ultracommand;
+package com.kierdavis.ultracommand;
 
 import java.util.Arrays;
 import java.util.Iterator;
