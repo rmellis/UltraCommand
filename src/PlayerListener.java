@@ -14,6 +14,8 @@ public class PlayerListener implements Listener {
     }
     
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
+        plugin.getLogger().info(event.getPlayer().getName() + ": " + event.getMessage());
+        
         if (event.isCancelled()) return;
         
         String cmdStr = event.getMessage();
