@@ -15,16 +15,11 @@ public class PlayerListener implements Listener {
     
     @EventHandler
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
-        plugin.getLogger().info(event.getPlayer().getName() + ": " + event.getMessage());
-        
         if (event.isCancelled()) return;
         
         String cmdStr = event.getMessage();
         String[] parts = cmdStr.split(" ");
         String cmdName = parts[0].toLowerCase().substring(1);
-        
-        plugin.getLogger().info("Command: " + cmdStr);
-        plugin.getLogger().info("Name: " + cmdName);
         
         if (plugin.commands.containsKey(cmdName)) {
             CustomCommand cmd = plugin.commands.get(cmdName);

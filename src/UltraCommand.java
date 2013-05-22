@@ -13,7 +13,7 @@ public class UltraCommand extends JavaPlugin {
         CustomCommand c = new CustomCommand();
         c.addText("&eSome text.");
         c.addChat("&dSome chat.");
-        c.addCommand("/tell $p Some player comand.");
+        c.addPlayerCommand("/tell $p Some player comand.");
         c.addConsoleCommand("/say Some server command.");
         commands.put("test", c);
         

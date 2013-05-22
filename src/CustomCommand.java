@@ -11,13 +11,13 @@ import org.bukkit.ChatColor;
 public class CustomCommand {
     private List<String> text;
     private List<String> chat;
-    private List<String> commands;
+    private List<String> playerCommands;
     private List<String> consoleCommands;
     
     public CustomCommand() {
         text = null;
         chat = null;
-        commands = null;
+        playerCommands = null;
         consoleCommands = null;
     }
     
@@ -31,9 +31,9 @@ public class CustomCommand {
         chat.add(s);
     }
     
-    public void addCommand(String s) {
-        if (commands == null) commands = new ArrayList<String>();
-        commands.add(s);
+    public void addPlayerCommand(String s) {
+        if (playerCommands == null) playerCommands = new ArrayList<String>();
+        playerCommands.add(s);
     }
     
     public void addConsoleCommand(String s) {
@@ -44,7 +44,7 @@ public class CustomCommand {
     public void execute(Player player, String[] args) {
         execText(player, args);
         execChat(player, args);
-        execCommands(player, args);
+        execPlayerCommands(player, args);
         execConsoleCommands(player, args);
     }
     
@@ -70,13 +70,13 @@ public class CustomCommand {
         }
     }
     
-    private void execCommands(Player player, String[] args) {
-        if (commands == null) return;
+    private void execPlayerCommands(Player player, String[] args) {
+        if (playerCommands == null) return;
         
         Server server = player.getServer();
         
-        for (int i = 0; i < commands.size(); i++) {
-            String s = commands.get(i);
+        for (int i = 0; i < playerCommands.size(); i++) {
+            String s = playerCommands.get(i);
             s = doSubs(s, player, args);
             if (s.startsWith("/")) s = s.substring(1);
             server.dispatchCommand(player, s);
@@ -98,12 +98,18 @@ public class CustomCommand {
     }
     
     private static String doSubs(String s, Player player, String[] args) {
+        StringBuilder argStr = new StringBuilder();
+        
         for (int i = 0; i < args.length; i++) {
             s = s.replaceAll("\\$" + Integer.toString(i + 1), Matcher.quoteReplacement(args[i]));
+            
+            if (i > 0) argStr.append(" ");
+            argStr.append(args[i]);
         }
         
         s = s.replaceAll("\\$p", Matcher.quoteReplacement(player.getName()));
         s = s.replaceAll("\\$d", Matcher.quoteReplacement(player.getDisplayName()));
+        s = s.replaceAll("\\$a", Matcher.quoteReplacement(argStr.toString()));
         
         return s;
     }
