@@ -21,10 +21,10 @@ public class UltraCommandExecutor implements CommandExecutor {
         }
         
         String name = args[0];
-        String[] args = Arrays.copyOfRange(args, 1, args.length);
+        String[] remainingArgs = Arrays.copyOfRange(args, 1, args.length);
         
-        if (name.equalsIgnoreCase("add")) return doAdd(sender, args);
-        if (name.equalsIgnoreCase("list")) return doList(sender, args);
+        if (name.equalsIgnoreCase("add")) return doAdd(sender, remainingArgs);
+        if (name.equalsIgnoreCase("list")) return doList(sender, remainingArgs);
         
         printUsage(sender);
         return false;

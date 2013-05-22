@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -23,7 +24,7 @@ public class UltraCommand extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         
         UltraCommandExecutor cmdExec = new UltraCommandExecutor(this);
-        getCommand("ultracommand").setExector(cmdExec);
+        getCommand("ultracommand").setExecutor(cmdExec);
         getCommand("uc").setExecutor(cmdExec);
     }
     
@@ -52,7 +53,7 @@ public class UltraCommand extends JavaPlugin {
     }
     
     public Set<String> getCustomCommands() {
-        return getCommandsSection().getKeys();
+        return getCommandsSection().getKeys(false);
     }
     
     public CustomCommand getCustomCommand(String name) {
