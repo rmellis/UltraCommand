@@ -19,10 +19,10 @@ public class PlayerListener implements Listener {
         
         String cmdStr = event.getMessage();
         String[] parts = cmdStr.split(" ");
-        String cmdName = parts[0].toLowerCase().substring(1);
+        String cmdName = parts[0].substring(1);
+        CustomCommand cmd = plugin.getCommand(cmdName);
         
-        if (plugin.commands.containsKey(cmdName)) {
-            CustomCommand cmd = plugin.commands.get(cmdName);
+        if (cmd != null) {
             cmd.execute(event.getPlayer(), Arrays.copyOfRange(parts, 1, parts.length));
             event.setCancelled(true);
         }
