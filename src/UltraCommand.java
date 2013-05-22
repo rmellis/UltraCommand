@@ -45,7 +45,6 @@ public class UltraCommand extends JavaPlugin {
     public void loadCustomCommands() {
         if (!commandsFile.exists()) {
             createCommandsFile();
-            return;
         }
         
         commandsConfig = YamlConfiguration.loadConfiguration(commandsFile);
