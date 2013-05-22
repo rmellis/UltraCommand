@@ -179,32 +179,36 @@ public class UltraCommand extends JavaPlugin {
         return commandSection.getStringList("consoleCommands");
     }
     
-    public List<String> clearText(String name) {
+    public void clearText(String name) {
         ConfigurationSection commandSection = getCommandSection(name);
-        if (commandSection == null) return null;
+        if (commandSection == null) return false;
         
-        return commandSection.set("text", new ArrayList<String>());
+        commandSection.set("text", new ArrayList<String>());
+        return true;
     }
     
-    public List<String> clearChat(String name) {
+    public void clearChat(String name) {
         ConfigurationSection commandSection = getCommandSection(name);
-        if (commandSection == null) return null;
+        if (commandSection == null) return false;
         
-        return commandSection.set("chat", new ArrayList<String>());
+        commandSection.set("chat", new ArrayList<String>());
+        return true;
     }
     
-    public List<String> clearPlayerCommands(String name) {
+    public void clearPlayerCommands(String name) {
         ConfigurationSection commandSection = getCommandSection(name);
-        if (commandSection == null) return null;
+        if (commandSection == null) return false;
         
-        return commandSection.set("playerCommands", new ArrayList<String>());
+        commandSection.set("playerCommands", new ArrayList<String>());
+        return true;
     }
     
-    public List<String> clearConsoleCommands(String name) {
+    public void clearConsoleCommands(String name) {
         ConfigurationSection commandSection = getCommandSection(name);
-        if (commandSection == null) return null;
+        if (commandSection == null) return false;
         
-        return commandSection.set("consoleCommands", new ArrayList<String>());
+        commandSection.set("consoleCommands", new ArrayList<String>());
+        return true;
     }
     
     private ConfigurationSection getCommandsSection() {

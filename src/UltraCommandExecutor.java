@@ -232,11 +232,11 @@ public class UltraCommandExecutor implements CommandExecutor {
             things = "Chat";
         }
         else if (subcmd.equalsIgnoreCase("pcmd")) {
-            success = plugin.clearPlayerCommand(name);
+            success = plugin.clearPlayerCommands(name);
             things = "Player commands";
         }
         else if (subcmd.equalsIgnoreCase("ccmd")) {
-            success = plugin.clearConsoleCommand(name);
+            success = plugin.clearConsoleCommands(name);
             things = "Console commands";
         }
         else {
