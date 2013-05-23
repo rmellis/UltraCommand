@@ -281,8 +281,6 @@ public class UltraCommand extends JavaPlugin {
     
     public boolean doCommand(Player player, String[] parts) {
         String cmdName = parts[0];
-        if (cmdName.startsWith("/")) cmdName = cmdName.substring(1);
-        
         CustomCommand cmd = getCustomCommand(cmdName);
         
         if (cmd != null) {

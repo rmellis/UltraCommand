@@ -16,6 +16,10 @@ public class PlayerListener implements Listener {
         if (event.isCancelled()) return;
         
         String[] parts = event.getMessage().split(" ");
+        
+        if (parts[0].startsWith("/")) parts[0] = parts[0].substring(1);
+        if (parts[0].length() == 0) return;
+        
         boolean success = plugin.doCommand(event.getPlayer(), parts);
         
         event.setCancelled(success); // If we succeeded, block the event from further processing.

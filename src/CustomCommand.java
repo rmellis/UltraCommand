@@ -3,12 +3,15 @@ package com.kierdavis.ultracommand;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.Server;
 import org.bukkit.ChatColor;
 
 public class CustomCommand {
+    private static Pattern ARG_PATTERN = Pattern.compile("\\$(\\d+)");
+    
     private List<String> text;
     private List<String> chat;
     private List<String> playerCommands;
@@ -58,6 +61,11 @@ public class CustomCommand {
     }
     
     public void execute(Player player, String[] args) {
+        if (!checkArgs(player, text, args.length)) return;
+        if (!checkArgs(player, chat, args.length)) return;
+        if (!checkArgs(player, playerCommands, args.length)) return;
+        if (!checkArgs(player, consoleCommands, args.length)) return;
+        
         execText(player, args);
         execChat(player, args);
         execPlayerCommands(player, args);
@@ -128,5 +136,14 @@ public class CustomCommand {
         s = s.replaceAll("\\$a", Matcher.quoteReplacement(argStr.toString()));
         
         return s;
+    }
+    
+    private boolean checkArgs(Player player, List<String> items, int numArgs) {
+        // TODO: Implement efficiently.
+        // Should find the maximum argument sub within items, and use it to
+        // validate the number of arguments passed. If the validation fails,
+        // false is returned after a message is send to the player, else true
+        // is returned.
+        return true;
     }
 }
