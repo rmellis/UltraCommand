@@ -91,6 +91,18 @@ public class UltraCommandExecutor implements CommandExecutor {
         boolean success;
         String thing;
         
+        if (!plugin.hasCustomCommand(name)) {
+            success = plugin.addCustomCommand(name);
+            
+            if (success) {
+                sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " created.");
+            }
+            else {
+                sender.sendMessage(ChatColor.RED + "Error: addCustomCommand returned false when we already (supposedly) know that the command doesn't exist!");
+                return false;
+            }
+        }
+        
         if (subcmd.equalsIgnoreCase("text")) {
             success = plugin.addText(name, rest);
             thing = "Text";
