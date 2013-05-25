@@ -16,6 +16,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
+import org.mcstats.Metrics;
 
 public class UltraCommand extends JavaPlugin {
     private File commandsFile;
@@ -35,6 +36,15 @@ public class UltraCommand extends JavaPlugin {
         
         dirty = false;
         saveCommandsTask = new SaveCommandsTask(this).runTaskTimer(this, 20 * 60, 20 * 60); // Check every minute.
+        
+        // Start Metrics
+        try {
+            Metrics metrics = new Metrics(this);
+            metrics.start();
+        }
+        catch (IOException e) {
+            getLogger().severe("Failed to submit stats to Metrics: " + e.toString());
+        }
     }
     
     public void onDisable() {
