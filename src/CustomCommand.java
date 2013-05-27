@@ -2,7 +2,7 @@ package com.kierdavis.ultracommand;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Logger;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.bukkit.command.ConsoleCommandSender;
