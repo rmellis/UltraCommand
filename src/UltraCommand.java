@@ -293,6 +293,12 @@ public class UltraCommand extends JavaPlugin {
         String cmdName = parts[0];
         CustomCommand cmd = getCustomCommand(cmdName);
         
+        StringBuilder b = new StringBuilder();
+        b.append(cmdName);
+        for (int i = 1; i < parts.length; i++) {
+            b.append(" ").append(parts[i]);
+        }
+        
         if (cmd != null) {
             String perm = "ultracommand.commands." + cmdName;
             if (!player.hasPermission(perm) && !player.hasPermission("ultracommand.commands.*")) {
@@ -300,6 +306,7 @@ public class UltraCommand extends JavaPlugin {
                 return true;
             }
             
+            getLogger().info(player.getName() + " issued custom command: " + b.toString());
             cmd.execute(player, Arrays.copyOfRange(parts, 1, parts.length));
             return true;
         }

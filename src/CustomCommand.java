@@ -2,6 +2,7 @@ package com.kierdavis.ultracommand;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.bukkit.command.ConsoleCommandSender;
@@ -12,12 +13,14 @@ import org.bukkit.ChatColor;
 public class CustomCommand {
     private static Pattern ARG_PATTERN = Pattern.compile("\\$(\\d+)");
     
+    private Logger logger;
     private List<String> text;
     private List<String> chat;
     private List<String> playerCommands;
     private List<String> consoleCommands;
     
-    public CustomCommand() {
+    public CustomCommand(Logger logger_) {
+        logger = logger_
         text = null;
         chat = null;
         playerCommands = null;
@@ -103,6 +106,7 @@ public class CustomCommand {
             String s = playerCommands.get(i);
             s = doSubs(s, player, args);
             if (s.startsWith("/")) s = s.substring(1);
+            logger.info("Command issued by " + player.getName() + " during processing: /" + s);
             server.dispatchCommand(player, s);
         }
     }
@@ -117,6 +121,7 @@ public class CustomCommand {
             String s = consoleCommands.get(i);
             s = doSubs(s, player, args);
             if (s.startsWith("/")) s = s.substring(1);
+            logger.info("Command issued by console during processing: /" + s);
             server.dispatchCommand(consoleSender, s);
         }
     }
