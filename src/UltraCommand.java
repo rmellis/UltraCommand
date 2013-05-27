@@ -108,10 +108,10 @@ public class UltraCommand extends JavaPlugin {
         }
         
         ConfigurationSection commandSection = commandsSection.createSection(name);
-        commandSection.set("text", new ArrayList<String>());
-        commandSection.set("chat", new ArrayList<String>());
-        commandSection.set("playerCommands", new ArrayList<String>());
-        commandSection.set("consoleCommands", new ArrayList<String>());
+        //commandSection.set("text", new ArrayList<String>());
+        //commandSection.set("chat", new ArrayList<String>());
+        //commandSection.set("playerCommands", new ArrayList<String>());
+        //commandSection.set("consoleCommands", new ArrayList<String>());
         
         dirty = true;
         return true;
