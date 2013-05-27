@@ -20,7 +20,7 @@ public class CustomCommand {
     private List<String> consoleCommands;
     
     public CustomCommand(Logger logger_) {
-        logger = logger_
+        logger = logger_;
         text = null;
         chat = null;
         playerCommands = null;

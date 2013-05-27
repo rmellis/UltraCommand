@@ -81,7 +81,7 @@ public class UltraCommand extends JavaPlugin {
         ConfigurationSection commandSection = getCommandSection(name);
         if (commandSection == null) return null;
         
-        CustomCommand cmd = new CustomCommand();
+        CustomCommand cmd = new CustomCommand(getLogger());
         List<String> l;
         
         l = commandSection.getStringList("text");
