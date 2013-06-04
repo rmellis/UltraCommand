@@ -151,7 +151,7 @@ public class CustomCommandContext {
             
             Matcher matcher = SUB_PATTERN.matcher(list.get(i));
             while (matcher.find()) {
-                String subType = matcher.group(0);
+                String subType = matcher.group(1);
                 String subValue = "";
                 
                 if (subType.equalsIgnoreCase("a")) {
@@ -173,7 +173,7 @@ public class CustomCommandContext {
                     catch (NumberFormatException e) {} // This shouldn't happen as long as the regexp is valid.
                     catch (ArrayIndexOutOfBoundsException e) {} // Leave subValue blank, the required arguments check will notify the user.
                     
-                    logger.fine("'" + subType + "'; " + Integer.toString(argNum) + "; '" + subValue + "'");
+                    //logger.fine("'" + subType + "'; " + Integer.toString(argNum) + "; '" + subValue + "'");
                     
                     if (argNum > reqArgs) {
                         reqArgs = argNum;
