@@ -14,11 +14,13 @@ public class CustomCommand {
     private static Pattern SUB_PATTERN = Pattern.compile("\\$([aAdDpP]|\\d+)");
     
     private Logger logger;
+    private Player player;
+    private String[] args;
     private List<String> text;
     private List<String> chat;
     private List<String> playerCommands;
     private List<String> consoleCommands;
-    private int maxarg;
+    private int reqArgs;
     
     public CustomCommand(Logger logger_) {
         logger = logger_;
@@ -27,6 +29,14 @@ public class CustomCommand {
         playerCommands = null;
         consoleCommands = null;
         reqArgs = 0;
+    }
+    
+    public void setPlayer(Player player_) {
+        player = player;
+    }
+    
+    public void setArgs(String[] args_) {
+        args = args_;
     }
     
     public void setText(List<String> l) {
@@ -65,7 +75,7 @@ public class CustomCommand {
         consoleCommands.add(s);
     }
     
-    public void execute(Player player, String[] args) {
+    public void execute() {
         doSubs(text);
         doSubs(chat);
         doSubs(playerCommands);
@@ -76,49 +86,46 @@ public class CustomCommand {
             return;
         }
         
-        execText(player, args);
-        execChat(player, args);
-        execPlayerCommands(player, args);
-        execConsoleCommands(player, args);
+        execText();
+        execChat();
+        execPlayerCommands();
+        execConsoleCommands();
     }
     
-    private void execText(Player player, String[] args) {
+    private void execText() {
         if (text == null) return;
         
         for (int i = 0; i < text.size(); i++) {
             String s = text.get(i);
-            s = doSubs(s, player, args);
             s = ChatColor.translateAlternateColorCodes('&', s);
             player.sendMessage(s);
         }
     }
     
-    private void execChat(Player player, String[] args) {
+    private void execChat() {
         if (chat == null) return;
         
         for (int i = 0; i < chat.size(); i++) {
             String s = chat.get(i);
-            s = doSubs(s, player, args);
             s = ChatColor.translateAlternateColorCodes('&', s);
             player.chat(s);
         }
     }
     
-    private void execPlayerCommands(Player player, String[] args) {
+    private void execPlayerCommands() {
         if (playerCommands == null) return;
         
         Server server = player.getServer();
         
         for (int i = 0; i < playerCommands.size(); i++) {
             String s = playerCommands.get(i);
-            s = doSubs(s, player, args);
             if (s.startsWith("/")) s = s.substring(1);
             logger.info("Command issued by " + player.getName() + " during processing: /" + s);
             server.dispatchCommand(player, s);
         }
     }
     
-    private void execConsoleCommands(Player player, String[] args) {
+    private void execConsoleCommands() {
         if (consoleCommands == null) return;
         
         Server server = player.getServer();
@@ -126,14 +133,13 @@ public class CustomCommand {
         
         for (int i = 0; i < consoleCommands.size(); i++) {
             String s = consoleCommands.get(i);
-            s = doSubs(s, player, args);
             if (s.startsWith("/")) s = s.substring(1);
             logger.info("Command issued by console during processing: /" + s);
             server.dispatchCommand(consoleSender, s);
         }
     }
     
-    private void doSubs(List<String> list, Player player, String[] args) {
+    private void doSubs(List<String> list) {
         if (list == null || list.size() == 0) return;
         
         StringBuffer buffer = new StringBuffer();

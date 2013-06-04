@@ -307,7 +307,9 @@ public class UltraCommand extends JavaPlugin {
             }
             
             getLogger().info(player.getName() + " issued custom command: " + b.toString());
-            cmd.execute(player, Arrays.copyOfRange(parts, 1, parts.length));
+            cmd.setPlayer(player);
+            cmd.setArgs(Arrays.copyOfRange(parts, 1, parts.length));
+            cmd.execute();
             return true;
         }
         
