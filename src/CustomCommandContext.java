@@ -20,6 +20,7 @@ public class CustomCommandContext {
     private List<String> chat;
     private List<String> playerCommands;
     private List<String> consoleCommands;
+    private String usage;
     private int reqArgs;
     
     public CustomCommandContext(Logger logger_, Player player_, String[] args_) {
@@ -30,6 +31,7 @@ public class CustomCommandContext {
         chat = null;
         playerCommands = null;
         consoleCommands = null;
+        usage = "";
         reqArgs = 0;
     }
     
@@ -69,6 +71,10 @@ public class CustomCommandContext {
         consoleCommands.add(s);
     }
     
+    public void setUsage(String s) {
+        usage = s;
+    }
+    
     public void execute() {
         doSubs(text);
         doSubs(chat);
@@ -76,8 +82,13 @@ public class CustomCommandContext {
         doSubs(consoleCommands);
         
         if (args.length < reqArgs) {
-            String pluralisation = reqArgs == 1 ? "" : "s";
-            player.sendMessage(ChatColor.YELLOW + "This command requires at least " + Integer.toString(reqArgs) + " argument" + pluralisation + ".");
+            if (usage != null && usage.length() > 0) {
+                player.sendMessage(ChatColor.YELLOW + "Usage: " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', usage));
+            }
+            else {
+                player.sendMessage(ChatColor.YELLOW + "This command requires at least " + Integer.toString(reqArgs) + " argument" + (reqArgs == 1 ? "" : "s") + ".");
+            }
+            
             return;
         }
         

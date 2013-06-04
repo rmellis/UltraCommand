@@ -47,9 +47,10 @@ public class UltraCommandExecutor implements CommandExecutor {
         sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add chat " + ChatColor.RED + "<name> <chat>");
         sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add pcmd " + ChatColor.RED + "<name> <command>");
         sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add ccmd " + ChatColor.RED + "<name> <command>");
+        sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add usage " + ChatColor.RED + "<name> <text>");
         sender.sendMessage("  " + ChatColor.DARK_RED + "/uc list [name]");
         sender.sendMessage("  " + ChatColor.DARK_RED + "/uc reload");
-        sender.sendMessage("  " + ChatColor.DARK_RED + "/uc remove " + ChatColor.RED + "[text|chat|pcmd|ccmd] <name>");
+        sender.sendMessage("  " + ChatColor.DARK_RED + "/uc remove " + ChatColor.RED + "[text|chat|pcmd|ccmd|usage] <name>");
         sender.sendMessage("  " + ChatColor.DARK_RED + "/uc save");
     }
     
@@ -61,6 +62,7 @@ public class UltraCommandExecutor implements CommandExecutor {
             sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add chat " + ChatColor.RED + "<name> <chat>");
             sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add pcmd " + ChatColor.RED + "<name> <command>");
             sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add ccmd " + ChatColor.RED + "<name> <command>");
+            sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add usage " + ChatColor.RED + "<name> <text>");
             return false;
         }
         
@@ -119,6 +121,10 @@ public class UltraCommandExecutor implements CommandExecutor {
             success = plugin.addConsoleCommand(name, rest);
             thing = "Console command";
         }
+        else if (subcmd.equalsIgnoreCase("usage")) {
+            success = plugin.setUsage(name, rest);
+            thing = "Usage text";
+        }
         else {
             sender.sendMessage(ChatColor.YELLOW + "Usage (" + ChatColor.RED + "<required> [optional]" + ChatColor.YELLOW + ":");
             sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add " + ChatColor.RED + "<name>");
@@ -126,6 +132,7 @@ public class UltraCommandExecutor implements CommandExecutor {
             sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add chat " + ChatColor.RED + "<name> <chat>");
             sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add pcmd " + ChatColor.RED + "<name> <command>");
             sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add ccmd " + ChatColor.RED + "<name> <command>");
+            sender.sendMessage("  " + ChatColor.DARK_RED + "/uc add usage " + ChatColor.RED + "<name> <text>");
             return false;
         }
             
@@ -171,6 +178,7 @@ public class UltraCommandExecutor implements CommandExecutor {
         List<String> chat = plugin.getChat(name);
         List<String> playerCommands = plugin.getPlayerCommands(name);
         List<String> consoleCommands = plugin.getConsoleCommands(name);
+        String usage = plugin.getUsage(name);
         
         sender.sendMessage(ChatColor.GREEN + name + ChatColor.YELLOW + ":");
         
@@ -214,6 +222,13 @@ public class UltraCommandExecutor implements CommandExecutor {
             }
         }
         
+        if (usage == null || usage.length() == 0) {
+            sender.sendMessage("  " + ChatColor.YELLOW + "No usage text for this command.");
+        }
+        else {
+            sender.sendMessage("  " + ChatColor.YELLOW + "Usage text: " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', usage));
+        }
+        
         return true;
     }
     
@@ -226,7 +241,7 @@ public class UltraCommandExecutor implements CommandExecutor {
     private boolean doRemove(CommandSender sender, String[] args) {
         if (args.length < 1) {
             sender.sendMessage(ChatColor.YELLOW + "Usage (" + ChatColor.RED + "<required> [optional]" + ChatColor.YELLOW + ":");
-            sender.sendMessage("  " + ChatColor.DARK_RED + "/uc remove " + ChatColor.RED + "[text|chat|pcmd|ccmd] <name>");
+            sender.sendMessage("  " + ChatColor.DARK_RED + "/uc remove " + ChatColor.RED + "[text|chat|pcmd|ccmd|usage] <name>");
             return false;
         }
         
@@ -266,9 +281,13 @@ public class UltraCommandExecutor implements CommandExecutor {
             success = plugin.clearConsoleCommands(name);
             things = "Console commands";
         }
+        else if (subcmd.equalsIgnoreCase("usage")) {
+            success = plugin.setUsage(name, null);
+            things = "Usage text";
+        }
         else {
             sender.sendMessage(ChatColor.YELLOW + "Usage (" + ChatColor.RED + "<required> [optional]" + ChatColor.YELLOW + ":");
-            sender.sendMessage("  " + ChatColor.DARK_RED + "/uc remove " + ChatColor.RED + "[text|chat|pcmd|ccmd] <name>");
+            sender.sendMessage("  " + ChatColor.DARK_RED + "/uc remove " + ChatColor.RED + "[text|chat|pcmd|ccmd|usage] <name>");
             return false;
         }
             

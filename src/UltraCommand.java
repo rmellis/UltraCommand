@@ -96,6 +96,9 @@ public class UltraCommand extends JavaPlugin {
         l = commandSection.getStringList("consoleCommands");
         if (l != null && l.size() > 0) cmd.setConsoleCommands(l);
         
+        String usage = commandSection.getString("usage");
+        if (usage != null && usage.length() > 0) cmd.setUsage(usage);
+        
         return cmd;
     }
     
@@ -183,6 +186,16 @@ public class UltraCommand extends JavaPlugin {
         return true;
     }
     
+    public boolean setUsage(String name, String s) {
+        ConfigurationSection commandSection = getCommandSection(name);
+        if (commandSection == null) return false;
+        
+        commandSection.set("usage", s);
+        
+        dirty = true;
+        return true;
+    }
+    
     public List<String> getText(String name) {
         ConfigurationSection commandSection = getCommandSection(name);
         if (commandSection == null) return null;
@@ -209,6 +222,13 @@ public class UltraCommand extends JavaPlugin {
         if (commandSection == null) return null;
         
         return commandSection.getStringList("consoleCommands");
+    }
+    
+    public String getUsage(String name) {
+        ConfigurationSection commandSection = getCommandSection(name);
+        if (commandSection == null) return null;
+        
+        return commandSection.getString("usage");
     }
     
     public boolean clearText(String name) {
