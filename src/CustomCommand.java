@@ -11,13 +11,14 @@ import org.bukkit.Server;
 import org.bukkit.ChatColor;
 
 public class CustomCommand {
-    private static Pattern ARG_PATTERN = Pattern.compile("\\$(\\d+)");
+    private static Pattern SUB_PATTERN = Pattern.compile("\\$([aAdDpP]|\\d+)");
     
     private Logger logger;
     private List<String> text;
     private List<String> chat;
     private List<String> playerCommands;
     private List<String> consoleCommands;
+    private int maxarg;
     
     public CustomCommand(Logger logger_) {
         logger = logger_;
@@ -25,6 +26,7 @@ public class CustomCommand {
         chat = null;
         playerCommands = null;
         consoleCommands = null;
+        reqArgs = 0;
     }
     
     public void setText(List<String> l) {
@@ -64,10 +66,15 @@ public class CustomCommand {
     }
     
     public void execute(Player player, String[] args) {
-        if (!checkArgs(player, text, args.length)) return;
-        if (!checkArgs(player, chat, args.length)) return;
-        if (!checkArgs(player, playerCommands, args.length)) return;
-        if (!checkArgs(player, consoleCommands, args.length)) return;
+        doSubs(text);
+        doSubs(chat);
+        doSubs(playerCommands);
+        doSubs(consoleCommands);
+        
+        if (args.length < reqArgs) {
+            player.sendMessage(ChatColor.YELLOW + "This command requires at least " + Integer.toString(reqArgs) + " arguments.");
+            return;
+        }
         
         execText(player, args);
         execChat(player, args);
@@ -126,29 +133,56 @@ public class CustomCommand {
         }
     }
     
-    private static String doSubs(String s, Player player, String[] args) {
-        StringBuilder argStr = new StringBuilder();
+    private void doSubs(List<String> list, Player player, String[] args) {
+        if (list == null || list.size() == 0) return;
+        
+        StringBuffer buffer = new StringBuffer();
         
         for (int i = 0; i < args.length; i++) {
-            s = s.replaceAll("\\$" + Integer.toString(i + 1), Matcher.quoteReplacement(args[i]));
-            
-            if (i > 0) argStr.append(" ");
-            argStr.append(args[i]);
+            if (i > 0) buffer.append(" ");
+            buffer.append(args[i]);
         }
         
-        s = s.replaceAll("\\$p", Matcher.quoteReplacement(player.getName()));
-        s = s.replaceAll("\\$d", Matcher.quoteReplacement(player.getDisplayName()));
-        s = s.replaceAll("\\$a", Matcher.quoteReplacement(argStr.toString()));
+        String allArgs = buffer.toString();
         
-        return s;
-    }
-    
-    private boolean checkArgs(Player player, List<String> items, int numArgs) {
-        // TODO: Implement efficiently.
-        // Should find the maximum argument sub within items, and use it to
-        // validate the number of arguments passed. If the validation fails,
-        // false is returned after a message is send to the player, else true
-        // is returned.
-        return true;
+        for (int i = 0; i < list.size(); i++) {
+            // Re-use buffer
+            buffer.setLength(0);
+            
+            Matcher matcher = SUB_PATTERN.matcher(list.get(i));
+            while (matcher.find()) {
+                String subType = matcher.group(0);
+                String subValue = "";
+                
+                if (subType.equalsIgnoreCase("a")) {
+                    subValue = allArgs;
+                }
+                else if (subType.equalsIgnoreCase("d")) {
+                    subValue = player.getDisplayName();
+                }
+                else if (subType.equalsIgnoreCase("p")) {
+                    subValue = player.getName();
+                }
+                else {
+                    int argNum;
+                    
+                    try {
+                        argNum = Integer.parseInt(subType);
+                        subValue = args[argNum];
+                    }
+                    catch (NumberFormatException e) {} // This shouldn't happen as long as the regexp is valid.
+                    catch (ArrayIndexOutOfBoundsException e) {} // Leave subValue blank, the required arguments check will notify the user.
+                    
+                    if (argNum > reqArgs) {
+                        reqArgs = argNum;
+                    }
+                }
+                
+                matcher.appendReplacement(buffer, subValue);
+            }
+            
+            matcher.appendTail(buffer);
+            list.set(i, buffer.toString());
+        }
     }
 }
