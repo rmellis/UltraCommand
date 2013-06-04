@@ -76,7 +76,8 @@ public class CustomCommandContext {
         doSubs(consoleCommands);
         
         if (args.length < reqArgs) {
-            player.sendMessage(ChatColor.YELLOW + "This command requires at least " + Integer.toString(reqArgs) + " arguments.");
+            String pluralisation = reqArgs == 1 ? "" : "s";
+            player.sendMessage(ChatColor.YELLOW + "This command requires at least " + Integer.toString(reqArgs) + " argument" + pluralisation + ".");
             return;
         }
         
