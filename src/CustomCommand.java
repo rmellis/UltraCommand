@@ -170,7 +170,7 @@ public class CustomCommand {
                     subValue = player.getName();
                 }
                 else {
-                    int argNum;
+                    int argNum = 0;
                     
                     try {
                         argNum = Integer.parseInt(subType);
