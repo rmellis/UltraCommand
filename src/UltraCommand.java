@@ -77,11 +77,11 @@ public class UltraCommand extends JavaPlugin {
         return getCommandsSection().getKeys(false);
     }
     
-    public CustomCommand getCustomCommand(String name) {
+    public CustomCommandContext getCustomCommandContext(String name, Player player, String[] args) {
         ConfigurationSection commandSection = getCommandSection(name);
         if (commandSection == null) return null;
         
-        CustomCommand cmd = new CustomCommand(getLogger());
+        CustomCommandContext cmd = new CustomCommandContext(getLogger(), player, args);
         List<String> l;
         
         l = commandSection.getStringList("text");
@@ -291,7 +291,8 @@ public class UltraCommand extends JavaPlugin {
     
     public boolean doCommand(Player player, String[] parts) {
         String cmdName = parts[0];
-        CustomCommand cmd = getCustomCommand(cmdName);
+        String[] args = Arrays.copyOfRange(parts, 1, parts.length);
+        CustomCommandContext ccc = getCustomCommandContext(cmdName, player, args);
         
         StringBuilder b = new StringBuilder();
         b.append(cmdName);
@@ -299,7 +300,7 @@ public class UltraCommand extends JavaPlugin {
             b.append(" ").append(parts[i]);
         }
         
-        if (cmd != null) {
+        if (ccc != null) {
             String perm = "ultracommand.commands." + cmdName;
             if (!player.hasPermission(perm) && !player.hasPermission("ultracommand.commands.*")) {
                 player.sendMessage(ChatColor.YELLOW + "You don't have permission for this command (" + perm + ")");
@@ -307,9 +308,7 @@ public class UltraCommand extends JavaPlugin {
             }
             
             getLogger().info(player.getName() + " issued custom command: " + b.toString());
-            cmd.setPlayer(player);
-            cmd.setArgs(Arrays.copyOfRange(parts, 1, parts.length));
-            cmd.execute();
+            ccc.execute();
             return true;
         }
         
