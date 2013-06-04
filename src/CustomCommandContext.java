@@ -22,7 +22,7 @@ public class CustomCommandContext {
     private List<String> consoleCommands;
     private int reqArgs;
     
-    public CustomCommand(Logger logger_, Player player_, String[] args_) {
+    public CustomCommandContext(Logger logger_, Player player_, String[] args_) {
         logger = logger_;
         player = player_;
         args = args_;
