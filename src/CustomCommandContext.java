@@ -173,7 +173,7 @@ public class CustomCommandContext {
                     catch (NumberFormatException e) {} // This shouldn't happen as long as the regexp is valid.
                     catch (ArrayIndexOutOfBoundsException e) {} // Leave subValue blank, the required arguments check will notify the user.
                     
-                    logger.fine(Integer.toString(argNum) + "; '" + subValue + "'")
+                    logger.fine(Integer.toString(argNum) + "; '" + subValue + "'");
                     
                     if (argNum > reqArgs) {
                         reqArgs = argNum;
