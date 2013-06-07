@@ -180,7 +180,7 @@ public class CustomCommandContext {
                     
                     try {
                         argNum = Integer.parseInt(subType);
-                        subValue = args[argNum];
+                        subValue = args[argNum - 1];
                     }
                     catch (NumberFormatException e) {} // This shouldn't happen as long as the regexp is valid.
                     catch (ArrayIndexOutOfBoundsException e) {} // Leave subValue blank, the required arguments check will notify the user.
