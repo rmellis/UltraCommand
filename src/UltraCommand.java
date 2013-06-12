@@ -31,10 +31,6 @@ public class UltraCommand extends JavaPlugin {
         
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         
-        //UltraCommandExecutor cmdExec = new UltraCommandExecutor(this);
-        //getCommand("ultracommand").setExecutor(cmdExec);
-        //getCommand("uc").setExecutor(cmdExec);
-        
         FlexCommandExecutor cmdExec = FlexCommandExecutor.getInstance();
         cmdExec.addHandler(this, new AddCommandHandler(this));
         cmdExec.addHandler(this, new ListCommandHandler(this));
