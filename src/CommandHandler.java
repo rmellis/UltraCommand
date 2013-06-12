@@ -13,5 +13,6 @@ public class CommandHandler {
     @FlexHandler("ultracommand add")
     public boolean doAdd(FlexCommandContext ctx) {
         ctx.getSender().sendMessage("Hooray, it works!");
+        return true;
     }
 }
