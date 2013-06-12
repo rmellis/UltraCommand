@@ -2,6 +2,9 @@ package com.kierdavis.ultracommand;
 
 import com.kierdavis.flex.FlexCommandContext;
 import com.kierdavis.flex.FlexHandler;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 import org.bukkit.ChatColor;
 
 public class ListCommandHandler {
@@ -17,16 +20,16 @@ public class ListCommandHandler {
             Set<String> cmds = plugin.getCustomCommands();
             
             if (cmds.size() == 0) {
-                getSender().sendMessage(ChatColor.YELLOW + "No defined commands.");
+                ctx.getSender().sendMessage(ChatColor.YELLOW + "No defined commands.");
             }
             
             else {
                 Iterator<String> it = cmds.iterator();
-                getSender().sendMessage(ChatColor.YELLOW + "Defined commands:");
+                ctx.getSender().sendMessage(ChatColor.YELLOW + "Defined commands:");
                 
                 while (it.hasNext()) {
                     String name = (String) it.next();
-                    getSender().sendMessage("  " + ChatColor.YELLOW + "- " + ChatColor.GREEN + name);
+                    ctx.getSender().sendMessage("  " + ChatColor.YELLOW + "- " + ChatColor.GREEN + name);
                 }
             }
             
@@ -37,7 +40,7 @@ public class ListCommandHandler {
             String name = ctx.getArg(0);
             
             if (!plugin.hasCustomCommand(name)) {
-                getSender().sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
+                ctx.getSender().sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
                 return false;
             }
             
@@ -47,53 +50,53 @@ public class ListCommandHandler {
             List<String> consoleCommands = plugin.getConsoleCommands(name);
             String usage = plugin.getUsage(name);
             
-            getSender().sendMessage(ChatColor.GREEN + name + ChatColor.YELLOW + ":");
+            ctx.getSender().sendMessage(ChatColor.GREEN + name + ChatColor.YELLOW + ":");
             
             if (text == null || text.size() == 0) {
-                getSender().sendMessage("  " + ChatColor.YELLOW + "No text for this command.");
+                ctx.getSender().sendMessage("  " + ChatColor.YELLOW + "No text for this command.");
             }
             else {
-                getSender().sendMessage("  " + ChatColor.YELLOW + "Text:");
+                ctx.getSender().sendMessage("  " + ChatColor.YELLOW + "Text:");
                 for (int i = 0; i < text.size(); i++) {
-                    getSender().sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', text.get(i)));
+                    ctx.getSender().sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', text.get(i)));
                 }
             }
             
             if (chat == null || chat.size() == 0) {
-                getSender().sendMessage("  " + ChatColor.YELLOW + "No chat for this command.");
+                ctx.getSender().sendMessage("  " + ChatColor.YELLOW + "No chat for this command.");
             }
             else {
-                getSender().sendMessage("  " + ChatColor.YELLOW + "Chat:");
+                ctx.getSender().sendMessage("  " + ChatColor.YELLOW + "Chat:");
                 for (int i = 0; i < chat.size(); i++) {
-                    getSender().sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', chat.get(i)));
+                    ctx.getSender().sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', chat.get(i)));
                 }
             }
             
             if (playerCommands == null || playerCommands.size() == 0) {
-                getSender().sendMessage("  " + ChatColor.YELLOW + "No player commands for this command.");
+                ctx.getSender().sendMessage("  " + ChatColor.YELLOW + "No player commands for this command.");
             }
             else {
-                getSender().sendMessage("  " + ChatColor.YELLOW + "Player commands:");
+                ctx.getSender().sendMessage("  " + ChatColor.YELLOW + "Player commands:");
                 for (int i = 0; i < playerCommands.size(); i++) {
-                    getSender().sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.GREEN + playerCommands.get(i));
+                    ctx.getSender().sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.GREEN + playerCommands.get(i));
                 }
             }
             
             if (consoleCommands == null || consoleCommands.size() == 0) {
-                getSender().sendMessage("  " + ChatColor.YELLOW + "No console commands for this command.");
+                ctx.getSender().sendMessage("  " + ChatColor.YELLOW + "No console commands for this command.");
             }
             else {
-                getSender().sendMessage("  " + ChatColor.YELLOW + "Console commands:");
+                ctx.getSender().sendMessage("  " + ChatColor.YELLOW + "Console commands:");
                 for (int i = 0; i < consoleCommands.size(); i++) {
-                    getSender().sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.GREEN + consoleCommands.get(i));
+                    ctx.getSender().sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.GREEN + consoleCommands.get(i));
                 }
             }
             
             if (usage == null || usage.length() == 0) {
-                getSender().sendMessage("  " + ChatColor.YELLOW + "No usage text for this command.");
+                ctx.getSender().sendMessage("  " + ChatColor.YELLOW + "No usage text for this command.");
             }
             else {
-                getSender().sendMessage("  " + ChatColor.YELLOW + "Usage text: " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', usage));
+                ctx.getSender().sendMessage("  " + ChatColor.YELLOW + "Usage text: " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', usage));
             }
             
             return true;

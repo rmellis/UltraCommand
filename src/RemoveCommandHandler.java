@@ -13,7 +13,7 @@ public class RemoveCommandHandler {
     
     @FlexHandler(value="ultracommand remove", permission="ultracommand.configure")
     public boolean doRemove(FlexCommandContext ctx) {
-        String name = getArg(0);
+        String name = ctx.getArg(0);
         boolean success = plugin.removeCustomCommand(name);
         
         if (success) {
@@ -28,7 +28,7 @@ public class RemoveCommandHandler {
     
     @FlexHandler(value="ultracommand remove text", permission="ultracommand.configure")
     public boolean doRemoveText(FlexCommandContext ctx) {
-        String name = getArg(0);
+        String name = ctx.getArg(0);
         boolean success = plugin.clearText(name);
         
         if (success) {
@@ -43,7 +43,7 @@ public class RemoveCommandHandler {
     
     @FlexHandler(value="ultracommand remove chat", permission="ultracommand.configure")
     public boolean doRemoveChat(FlexCommandContext ctx) {
-        String name = getArg(0);
+        String name = ctx.getArg(0);
         boolean success = plugin.clearChat(name);
         
         if (success) {
@@ -58,7 +58,7 @@ public class RemoveCommandHandler {
     
     @FlexHandler(value="ultracommand remove pcmd", permission="ultracommand.configure")
     public boolean doRemovePcmd(FlexCommandContext ctx) {
-        String name = getArg(0);
+        String name = ctx.getArg(0);
         boolean success = plugin.clearPlayerCommands(name);
         
         if (success) {
@@ -73,7 +73,7 @@ public class RemoveCommandHandler {
     
     @FlexHandler(value="ultracommand remove ccmd", permission="ultracommand.configure")
     public boolean doRemoveCcmd(FlexCommandContext ctx) {
-        String name = getArg(0);
+        String name = ctx.getArg(0);
         boolean success = plugin.clearConsoleCommands(name);
         
         if (success) {
@@ -88,7 +88,7 @@ public class RemoveCommandHandler {
     
     @FlexHandler(value="ultracommand remove usage", permission="ultracommand.configure")
     public boolean doRemoveUsage(FlexCommandContext ctx) {
-        String name = getArg(0);
+        String name = ctx.getArg(0);
         boolean success = plugin.setUsage(name, null);
         
         if (success) {
