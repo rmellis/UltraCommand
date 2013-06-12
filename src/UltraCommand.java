@@ -36,7 +36,8 @@ public class UltraCommand extends JavaPlugin {
         //getCommand("uc").setExecutor(cmdExec);
         
         FlexCommandExecutor.getInstance().addHandler(this, new CommandHandler(this));
-        //FlexCommandExecutor.getInstance().alias("ultracommand", "uc");
+        FlexCommandExecutor.getInstance().alias("ultracommand", "uc");
+        FlexCommandExecutor.getInstance().alias("ultracommand add", "1 2 3");
         
         dirty = false;
         saveCommandsTask = new SaveCommandsTask(this).runTaskTimer(this, 20 * 60, 20 * 60); // Check every minute.
