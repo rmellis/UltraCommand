@@ -12,14 +12,14 @@ public class MiscCommandHandler {
     }
     
     @FlexHandler(value="ultracommand reload", permission="ultracommand.configure")
-    private boolean doReload(FlexCommandContext ctx) {
+    public boolean doReload(FlexCommandContext ctx) {
         plugin.loadCustomCommands();
         ctx.getSender().sendMessage(ChatColor.YELLOW + "Commands configuration reloaded.");
         return true;
     }
     
     @FlexHandler(value="ultracommand save", permission="ultracommand.configure")
-    private boolean doSave(FlexCommandContext ctx) {
+    public boolean doSave(FlexCommandContext ctx) {
         plugin.saveCustomCommands();
         ctx.getSender().sendMessage(ChatColor.YELLOW + "Commands configuration saved.");
         return true;
