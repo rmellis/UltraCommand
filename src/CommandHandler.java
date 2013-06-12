@@ -10,7 +10,7 @@ public class CommandHandler {
         plugin = plugin_;
     }
     
-    @FlexHandler("ultracommand add")
+    @FlexHandler("ultracommand add", permission="ultracommand.configure")
     public boolean doAdd(FlexCommandContext ctx) {
         ctx.getSender().sendMessage("Hooray, it works!");
         return true;
