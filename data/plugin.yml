@@ -1,5 +1,5 @@
 name: UltraCommand
-version: 0.5.7-flex
+version: 0.5.8-flex
 author: Kier Davis <kierdavis@gmail.com>
 
 main: com.kierdavis.ultracommand.UltraCommand
@@ -9,8 +9,6 @@ commands:
         description: UltraCommand
     ultracommand:
         description: UltraCommand
-    1:
-        description: UltraCommand (testing)
 
 permissions:
     ultracommand.configure:
