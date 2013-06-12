@@ -1,5 +1,5 @@
 name: UltraCommand
-version: 0.5.8-flex
+version: 0.5.9-flex
 author: Kier Davis <kierdavis@gmail.com>
 
 main: com.kierdavis.ultracommand.UltraCommand
