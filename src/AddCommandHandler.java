@@ -2,6 +2,7 @@ package com.kierdavis.ultracommand;
 
 import com.kierdavis.flex.FlexCommandContext;
 import com.kierdavis.flex.FlexHandler;
+import org.bukkit.ChatColor;
 
 public class AddCommandHandler {
     private UltraCommand plugin;
@@ -36,10 +37,10 @@ public class AddCommandHandler {
         
         boolean success = plugin.addText(name, ctx.argsString(1));
         if (success) {
-            sender.sendMessage(ChatColor.YELLOW + "Text added to command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Text added to command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
         }
         else {
-            sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
         }
         
         return success;
@@ -56,10 +57,10 @@ public class AddCommandHandler {
         
         boolean success = plugin.addChat(name, ctx.argsString(1));
         if (success) {
-            sender.sendMessage(ChatColor.YELLOW + "Chat added to command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Chat added to command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
         }
         else {
-            sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
         }
         
         return success;
@@ -76,10 +77,10 @@ public class AddCommandHandler {
         
         boolean success = plugin.addPlayerCommand(name, ctx.argsString(1));
         if (success) {
-            sender.sendMessage(ChatColor.YELLOW + "Player command added to command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Player command added to command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
         }
         else {
-            sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
         }
         
         return success;
@@ -94,12 +95,12 @@ public class AddCommandHandler {
             }
         }
         
-        boolean success = plugin.addConsoleComand(name, ctx.argsString(1));
+        boolean success = plugin.addConsoleCommand(name, ctx.argsString(1));
         if (success) {
-            sender.sendMessage(ChatColor.YELLOW + "Console command added to command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Console command added to command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
         }
         else {
-            sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
         }
         
         return success;
@@ -116,10 +117,10 @@ public class AddCommandHandler {
         
         boolean success = plugin.setUsage(name, ctx.argsString(1));
         if (success) {
-            sender.sendMessage(ChatColor.YELLOW + "Usage text added to command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Usage text added to command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
         }
         else {
-            sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
         }
         
         return success;

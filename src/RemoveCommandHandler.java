@@ -2,6 +2,7 @@ package com.kierdavis.ultracommand;
 
 import com.kierdavis.flex.FlexCommandContext;
 import com.kierdavis.flex.FlexHandler;
+import org.bukkit.ChatColor;
 
 public class RemoveCommandHandler {
     private UltraCommand plugin;
@@ -16,10 +17,10 @@ public class RemoveCommandHandler {
         boolean success = plugin.removeCustomCommand(name);
         
         if (success) {
-            sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " removed.");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " removed.");
         }
         else {
-            sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
         }
         
         return success;
@@ -31,10 +32,10 @@ public class RemoveCommandHandler {
         boolean success = plugin.clearText(name);
         
         if (success) {
-            sender.sendMessage(ChatColor.YELLOW + "Text cleared for command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Text cleared for command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
         }
         else {
-            sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
         }
         
         return success;
@@ -46,10 +47,10 @@ public class RemoveCommandHandler {
         boolean success = plugin.clearChat(name);
         
         if (success) {
-            sender.sendMessage(ChatColor.YELLOW + "Chat cleared for command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Chat cleared for command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
         }
         else {
-            sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
         }
         
         return success;
@@ -61,10 +62,10 @@ public class RemoveCommandHandler {
         boolean success = plugin.clearPlayerCommands(name);
         
         if (success) {
-            sender.sendMessage(ChatColor.YELLOW + "Player commands cleared for command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Player commands cleared for command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
         }
         else {
-            sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
         }
         
         return success;
@@ -76,10 +77,10 @@ public class RemoveCommandHandler {
         boolean success = plugin.clearConsoleCommands(name);
         
         if (success) {
-            sender.sendMessage(ChatColor.YELLOW + "Console commands cleared for command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Console commands cleared for command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
         }
         else {
-            sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
         }
         
         return success;
@@ -91,10 +92,10 @@ public class RemoveCommandHandler {
         boolean success = plugin.setUsage(name, null);
         
         if (success) {
-            sender.sendMessage(ChatColor.YELLOW + "Usage cleared for command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Usage cleared for command " + ChatColor.GREEN + name + ChatColor.YELLOW + ".");
         }
         else {
-            sender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
+            ctx.getSender().sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + name + ChatColor.YELLOW + " does not exist.");
         }
         
         return success;
