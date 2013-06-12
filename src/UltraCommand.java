@@ -1,9 +1,10 @@
 package com.kierdavis.ultracommand;
 
+import com.kierdavis.flex.FlexCommandExecutor;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -30,9 +31,12 @@ public class UltraCommand extends JavaPlugin {
         
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         
-        UltraCommandExecutor cmdExec = new UltraCommandExecutor(this);
-        getCommand("ultracommand").setExecutor(cmdExec);
-        getCommand("uc").setExecutor(cmdExec);
+        //UltraCommandExecutor cmdExec = new UltraCommandExecutor(this);
+        //getCommand("ultracommand").setExecutor(cmdExec);
+        //getCommand("uc").setExecutor(cmdExec);
+        
+        FlexCommandExecutor.getInstance().addHandler(this, new CommandHandler(this));
+        //FlexCommandExecutor.getInstance().alias("ultracommand", "uc");
         
         dirty = false;
         saveCommandsTask = new SaveCommandsTask(this).runTaskTimer(this, 20 * 60, 20 * 60); // Check every minute.
