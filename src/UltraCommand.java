@@ -317,7 +317,6 @@ public class UltraCommand extends JavaPlugin {
         CustomCommandContext ccc = null;
         String cmdName = "";
         StringBuilder b = new StringBuilder();
-        b.append(parts[0]);
         
         for (int i = 0; i < parts.length; i++) {
             String thisCmdName = b.toString().replaceAll(" ", "_");
