@@ -323,17 +323,17 @@ public class UltraCommand extends JavaPlugin {
             b.append(parts[i]);
             
             String thisCmdName = b.toString().replaceAll(" ", "_");
-            CustomCommandContext thisCCC = getCustomCommandContext(cmdName, player, Arrays.copyOfRange(parts, i+1, parts.length));
+            CustomCommandContext thisCCC = getCustomCommandContext(thisCmdName, player, Arrays.copyOfRange(parts, i+1, parts.length));
             
             if (thisCCC != null) {
                 cmdName = thisCmdName;
                 ccc = thisCCC;
             }
             
-            getLogger().info(ccc.toString());
-            getLogger().info(thisCCC.toString());
-            getLogger().info(cmdName.toString());
-            getLogger().info(thisCmdName.toString());
+            //getLogger().info(ccc.toString());
+            //getLogger().info(thisCCC.toString());
+            //getLogger().info(cmdName.toString());
+            //getLogger().info(thisCmdName.toString());
         }
         
         if (ccc != null) {
