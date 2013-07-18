@@ -319,9 +319,9 @@ public class UltraCommand extends JavaPlugin {
         StringBuilder b = new StringBuilder();
         b.append(parts[0]);
         
-        for (int i = 1; i < parts.length; i++) {
+        for (int i = 0; i < parts.length; i++) {
             String thisCmdName = b.toString().replaceAll(" ", "_");
-            CustomCommandContext thisCCC = getCustomCommandContext(cmdName, player, Arrays.copyOfRange(parts, i, parts.length));
+            CustomCommandContext thisCCC = getCustomCommandContext(cmdName, player, Arrays.copyOfRange(parts, i+1, parts.length));
             
             if (thisCCC != null) {
                 cmdName = thisCmdName;
@@ -333,7 +333,8 @@ public class UltraCommand extends JavaPlugin {
             getLogger().info(cmdName.toString());
             getLogger().info(thisCmdName.toString());
             
-            b.append(" ").append(parts[i]);
+            if (i > 0) b.append(" ");
+            b.append(parts[i]);
         }
         
         if (ccc != null) {
