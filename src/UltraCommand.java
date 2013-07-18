@@ -328,6 +328,11 @@ public class UltraCommand extends JavaPlugin {
                 ccc = thisCCC;
             }
             
+            getLogger().info(ccc.toString());
+            getLogger().info(thisCCC.toString());
+            getLogger().info(cmdName.toString());
+            getLogger().info(thisCmdName.toString());
+            
             b.append(" ").append(parts[i]);
         }
         
