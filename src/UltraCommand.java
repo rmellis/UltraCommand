@@ -313,14 +313,18 @@ public class UltraCommand extends JavaPlugin {
         return dirty;
     }
     
-    public boolean doCommand(Player player, String[] parts) {
-        String cmdName = parts[0];
-        String[] args = Arrays.copyOfRange(parts, 1, parts.length);
-        CustomCommandContext ccc = getCustomCommandContext(cmdName, player, args);
-        
+    public boolean doCommand(Player player, String[] parts) { 
+        CustomCommandContext ccc = null;
+        String cmdName = "";
         StringBuilder b = new StringBuilder();
-        b.append(cmdName);
+        b.append(parts[0]);
+        
         for (int i = 1; i < parts.length; i++) {
+            if (ccc == null) {
+                cmdName = b.toString().replaceAll(" ", "_");
+                ccc = getCustomCommandContext(cmdName, player, Arrays.copyOfRange(parts, i, parts.length));
+            }
+            
             b.append(" ").append(parts[i]);
         }
         
