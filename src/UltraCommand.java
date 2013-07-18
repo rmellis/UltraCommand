@@ -320,9 +320,12 @@ public class UltraCommand extends JavaPlugin {
         b.append(parts[0]);
         
         for (int i = 1; i < parts.length; i++) {
-            if (ccc == null) {
-                cmdName = b.toString().replaceAll(" ", "_");
-                ccc = getCustomCommandContext(cmdName, player, Arrays.copyOfRange(parts, i, parts.length));
+            String thisCmdName = b.toString().replaceAll(" ", "_");
+            CustomCommandContext thisCCC = getCustomCommandContext(cmdName, player, Arrays.copyOfRange(parts, i, parts.length));
+            
+            if (thisCCC != null) {
+                cmdName = thisCmdName;
+                ccc = thisCCC;
             }
             
             b.append(" ").append(parts[i]);
