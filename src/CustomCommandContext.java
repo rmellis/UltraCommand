@@ -11,7 +11,7 @@ import org.bukkit.Server;
 import org.bukkit.ChatColor;
 
 public class CustomCommandContext {
-    private static Pattern SUB_PATTERN = Pattern.compile("\\$([aAdDpP]|\\d+)");
+    private static Pattern SUB_PATTERN = Pattern.compile("\\$([aAdDpP]|\\d+(\\+)?)");
     
     private Logger logger;
     private Player player;
@@ -167,7 +167,12 @@ public class CustomCommandContext {
                 String subValue = "";
                 
                 if (subType.equalsIgnoreCase("a")) {
-                    subValue = allArgs;
+                    buffer.reset();
+                    for (int i = 0; i < args.length; i++) {
+                        if (i > 0) buffer.append(" ");
+                        buffer.append(args[i]);
+                    }
+                    subValue = buffer.toString();
                 }
                 else if (subType.equalsIgnoreCase("d")) {
                     subValue = player.getDisplayName();
@@ -178,12 +183,30 @@ public class CustomCommandContext {
                 else {
                     int argNum = 0;
                     
+                    boolean isPlus = subType.charAt(-1) == '+';
+                    if (isPlus) {
+                        subType = subType.substring(0, -1);
+                    }
+                    
                     try {
                         argNum = Integer.parseInt(subType);
-                        subValue = args[argNum - 1];
                     }
                     catch (NumberFormatException e) {} // This shouldn't happen as long as the regexp is valid.
-                    catch (ArrayIndexOutOfBoundsException e) {} // Leave subValue blank, the required arguments check will notify the user.
+                    
+                    if (isPlus) {
+                        buffer.reset();
+                        for (int i = argNum - 1; i < args.length; i++) {
+                            if (i >= argNum) buffer.append(" ");
+                            buffer.append(args[i]);
+                        }
+                        subValue = buffer.toString();
+                    }
+                    else {
+                        try {
+                            subValue = args[argNum - 1];
+                        }
+                        catch (ArrayIndexOutOfBoundsException e) {} // Leave subValue blank, the required arguments check will notify the user.
+                    }
                     
                     //logger.fine("'" + subType + "'; " + Integer.toString(argNum) + "; '" + subValue + "'");
                     
