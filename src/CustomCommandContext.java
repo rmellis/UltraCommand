@@ -148,18 +148,12 @@ public class CustomCommandContext {
     private void doSubs(List<String> list) {
         if (list == null || list.size() == 0) return;
         
-        StringBuffer buffer = new StringBuffer();
-        
-        for (int i = 0; i < args.length; i++) {
-            if (i > 0) buffer.append(" ");
-            buffer.append(args[i]);
-        }
-        
-        String allArgs = buffer.toString();
+        StringBuffer outBuffer = new StringBuffer(); // For output
+        StringBuffer argBuffer = new StringBuffer(); // For constructing arg lists
         
         for (int i = 0; i < list.size(); i++) {
-            // Re-use buffer
-            buffer.setLength(0);
+            // Re-use outBuffer
+            outBuffer.setLength(0);
             
             Matcher matcher = SUB_PATTERN.matcher(list.get(i));
             while (matcher.find()) {
@@ -167,12 +161,12 @@ public class CustomCommandContext {
                 String subValue = "";
                 
                 if (subType.equalsIgnoreCase("a")) {
-                    buffer.reset();
-                    for (int i = 0; i < args.length; i++) {
-                        if (i > 0) buffer.append(" ");
-                        buffer.append(args[i]);
+                    argBuffer.setLength(0);
+                    for (int j = 0; j < args.length; j++) {
+                        if (j > 0) argBuffer.append(" ");
+                        argBuffer.append(args[j]);
                     }
-                    subValue = buffer.toString();
+                    subValue = argBuffer.toString();
                 }
                 else if (subType.equalsIgnoreCase("d")) {
                     subValue = player.getDisplayName();
@@ -194,12 +188,12 @@ public class CustomCommandContext {
                     catch (NumberFormatException e) {} // This shouldn't happen as long as the regexp is valid.
                     
                     if (isPlus) {
-                        buffer.reset();
-                        for (int i = argNum - 1; i < args.length; i++) {
-                            if (i >= argNum) buffer.append(" ");
-                            buffer.append(args[i]);
+                        argBuffer.setLength(0);
+                        for (int j = argNum - 1; j < args.length; j++) {
+                            if (j >= argNum) argBuffer.append(" ");
+                            argBuffer.append(args[j]);
                         }
-                        subValue = buffer.toString();
+                        subValue = argBuffer.toString();
                     }
                     else {
                         try {
@@ -215,11 +209,11 @@ public class CustomCommandContext {
                     }
                 }
                 
-                matcher.appendReplacement(buffer, subValue);
+                matcher.appendReplacement(outBuffer, subValue);
             }
             
-            matcher.appendTail(buffer);
-            list.set(i, buffer.toString());
+            matcher.appendTail(outBuffer);
+            list.set(i, outBuffer.toString());
         }
     }
 }
