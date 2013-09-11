@@ -54,6 +54,7 @@ The `$p` substitution is used to refer to the player's username.
 * `$d` - The display name of the player running the custom command.
 * `$a` - All arguments given to the custom command, separated with spaces (e.g. for passing to another command).
 * `$1`, `$2`, `$3` etc. - The arguments given to the custom command.
+* `$2+`, `$3+` etc. - Like `$a`, but beginning with the second, third etc. argument.
 
 # Commands
 
