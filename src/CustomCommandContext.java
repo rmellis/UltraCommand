@@ -177,9 +177,9 @@ public class CustomCommandContext {
                 else {
                     int argNum = 0;
                     
-                    boolean isPlus = subType.charAt(subType.length-1) == '+';
+                    boolean isPlus = subType.charAt(subType.length()-1) == '+';
                     if (isPlus) {
-                        subType = subType.substring(0, subType.length-1);
+                        subType = subType.substring(0, subType.length()-1);
                     }
                     
                     try {
