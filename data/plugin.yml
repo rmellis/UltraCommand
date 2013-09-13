@@ -1,5 +1,5 @@
 name: UltraCommand
-version: issue2-6
+version: issue2-7
 author: Kier Davis <kierdavis@gmail.com>
 
 main: com.kierdavis.ultracommand.UltraCommand
