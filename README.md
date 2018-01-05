@@ -1,3 +1,5 @@
+**PLEASE NOTE: I no longer actively maintain this project. Pull requests are welcome, but development has halted and issues are unlikely to gain a response.**
+
 UltraCommand allows a server administrator to define custom commands that can send the executing player messages, run commands as the player or as the console, and more!
 
 # Usage
