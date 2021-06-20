@@ -1,4 +1,4 @@
-**PLEASE NOTE: I no longer actively maintain this project. Pull requests are welcome, but development has halted and issues are unlikely to gain a response.**
+**PLEASE NOTE: This fork is a work in progress, all releases attached are of the old version from bukkit for now, check back soon for an update.**
 
 UltraCommand allows a server administrator to define custom commands that can send the executing player messages, run commands as the player or as the console, and more!
 
