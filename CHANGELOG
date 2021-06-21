@@ -1,2 +1,18 @@
+1.0.1:
+compatibility down to Bukkit, Spigot and Paper 1.8 and above.
+changed how and when the plugin should be loaded on startup to give UltraCommand full control over all commands you may want to create, for example you can create custom command overrides to replace any existing command! e.g. you can easily cover /op with the following example:
+    /ud add text op &6&l&oExamplePrefix &f&l&o> &cYou can NOT use this command
+    /ud add pcmd op me Just attempted to run /op
+    /uc add text minecraft:op &6&l&oExamplePrefix &f&l&o> &cNice try, but you can NOT use this command even with a prefix.
+    /ud add pcmd minecraft:op me Just attempted to run /minecraft:op
+Those 2 basic commands will block the /op command from being used even by your admins and report in chat what they did, of course you can customize this to your likening.
+don't forget that each command created generates it's own permission, so be sure to give the permission node for your new commands to everyone. (ultracommand.commands.op | ultracommand.commands.minecraft:op)
+
+142-145 updated messages: "Successfully Saved", "Failed to Save", "Commands configuration successfully saved."
+Commands prioritized and responses fixed
+/uc list - list all custom commands
+/uc list <name> (Returns weather or not there are Chat Commands, Player Commands or Console Commands and what they are if they exist)
+/uc reload - reload all custom commands (usefull after editing your commands via the commands.yml)
+
 1.0.0:
 Initial release on Spigot (2021)
