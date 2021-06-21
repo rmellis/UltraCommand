@@ -232,7 +232,7 @@ public class UltraCommandExecutor implements CommandExecutor {
   
   private boolean doSave(CommandSender paramCommandSender, String[] paramArrayOfString) {
     this.plugin.saveCustomCommands();
-    paramCommandSender.sendMessage(ChatColor.YELLOW + "Commands configuration saved.");
+    paramCommandSender.sendMessage(ChatColor.YELLOW + "Commands configuration successfully saved.");
     return true;
   }
 }
