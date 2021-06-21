@@ -51,9 +51,9 @@ public class UltraCommand extends JavaPlugin {
     try {
       this.commandsConfig.save(this.commandsFile);
       this.dirty = false;
-      getLogger().info("Saved " + this.commandsFile.toString());
+      getLogger().info("Successfully Saved " + this.commandsFile.toString());
     } catch (IOException iOException) {
-      getLogger().severe("Could not save " + this.commandsFile.toString() + ": " + iOException.toString());
+      getLogger().severe("Failed to Save " + this.commandsFile.toString() + ": " + iOException.toString());
     } 
   }
   
