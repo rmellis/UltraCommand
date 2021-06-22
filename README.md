@@ -1,4 +1,6 @@
-**PLEASE NOTE: This fork is still a work in progress, though the errors present in minecraft versions above 1.13 and above have now been fixed.**
+![image](https://user-images.githubusercontent.com/41447552/122858277-eda74800-d311-11eb-986d-5c1bf474336e.png)
+
+**V Text Version Below V**
 
 UltraCommand allows a server administrator to define custom commands that can send the executing player messages, run commands as the player or as the console, and more!
 
