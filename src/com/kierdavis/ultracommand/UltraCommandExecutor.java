@@ -18,7 +18,7 @@ public class UltraCommandExecutor implements CommandExecutor {
   
   public boolean onCommand(CommandSender paramCommandSender, Command paramCommand, String paramString, String[] paramArrayOfString) {
     if (!paramCommandSender.hasPermission("ultracommand.configure")) {
-      paramCommandSender.sendMessage(ChatColor.YELLOW + "You don't have permission for this command (ultracommand.configure)");
+      paramCommandSender.sendMessage(ChatColor.YELLOW + "You don't have permission for this command, If you believe you should ask an admin for the following permission. (ultracommand.configure)");
       return false;
     } 
     if (paramArrayOfString.length == 0) {
@@ -72,7 +72,7 @@ public class UltraCommandExecutor implements CommandExecutor {
       if (bool1) {
         paramCommandSender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + str + ChatColor.YELLOW + " created.");
       } else {
-        paramCommandSender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + str + ChatColor.YELLOW + " already exists!");
+        paramCommandSender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + str + ChatColor.YELLOW + " already exists.");
       } 
       return bool1;
     } 
@@ -90,7 +90,7 @@ public class UltraCommandExecutor implements CommandExecutor {
       if (bool) {
         paramCommandSender.sendMessage(ChatColor.YELLOW + "Command " + ChatColor.GREEN + str2 + ChatColor.YELLOW + " created.");
       } else {
-        paramCommandSender.sendMessage(ChatColor.RED + "Error: addCustomCommand returned false when we already (supposedly) know that the command doesn't exist!");
+        paramCommandSender.sendMessage(ChatColor.RED + "Error: addCustomCommand returned false.");
         return false;
       } 
     } 
@@ -156,21 +156,21 @@ public class UltraCommandExecutor implements CommandExecutor {
         paramCommandSender.sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', list1.get(b))); 
     } 
     if (list2 == null || list2.size() == 0) {
-      paramCommandSender.sendMessage("  " + ChatColor.YELLOW + "No chat for this command.");
+      paramCommandSender.sendMessage("  " + ChatColor.YELLOW + "There is no chat defined for this command.");
     } else {
       paramCommandSender.sendMessage("  " + ChatColor.YELLOW + "Chat:");
       for (byte b = 0; b < list2.size(); b++)
         paramCommandSender.sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', list2.get(b))); 
     } 
     if (list3 == null || list3.size() == 0) {
-      paramCommandSender.sendMessage("  " + ChatColor.YELLOW + "No player commands for this command.");
+      paramCommandSender.sendMessage("  " + ChatColor.YELLOW + "There are no player commands for this command.");
     } else {
       paramCommandSender.sendMessage("  " + ChatColor.YELLOW + "Player commands:");
       for (byte b = 0; b < list3.size(); b++)
         paramCommandSender.sendMessage("    " + ChatColor.YELLOW + "- " + ChatColor.GREEN + (String)list3.get(b)); 
     } 
     if (list4 == null || list4.size() == 0) {
-      paramCommandSender.sendMessage("  " + ChatColor.YELLOW + "No console commands for this command.");
+      paramCommandSender.sendMessage("  " + ChatColor.YELLOW + "There are no console commands for this command.");
     } else {
       paramCommandSender.sendMessage("  " + ChatColor.YELLOW + "Console commands:");
       for (byte b = 0; b < list4.size(); b++)
@@ -181,7 +181,7 @@ public class UltraCommandExecutor implements CommandExecutor {
   
   private boolean doReload(CommandSender paramCommandSender, String[] paramArrayOfString) {
     this.plugin.loadCustomCommands();
-    paramCommandSender.sendMessage(ChatColor.YELLOW + "Commands configuration reloaded.");
+    paramCommandSender.sendMessage(ChatColor.YELLOW + "Commands configuration has been reloaded.");
     return true;
   }
   
@@ -232,7 +232,7 @@ public class UltraCommandExecutor implements CommandExecutor {
   
   private boolean doSave(CommandSender paramCommandSender, String[] paramArrayOfString) {
     this.plugin.saveCustomCommands();
-    paramCommandSender.sendMessage(ChatColor.YELLOW + "Commands configuration successfully saved.");
+    paramCommandSender.sendMessage(ChatColor.YELLOW + "Commands configuration saved successfully.");
     return true;
   }
 }
