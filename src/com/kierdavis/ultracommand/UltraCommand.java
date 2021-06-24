@@ -51,7 +51,7 @@ public class UltraCommand extends JavaPlugin {
     try {
       this.commandsConfig.save(this.commandsFile);
       this.dirty = false;
-      getLogger().info("Successfully Saved " + this.commandsFile.toString());
+      getLogger().info("Saved Successfully " + this.commandsFile.toString());
     } catch (IOException iOException) {
       getLogger().severe("Failed to Save " + this.commandsFile.toString() + ": " + iOException.toString());
     } 
@@ -253,7 +253,7 @@ public class UltraCommand extends JavaPlugin {
     if (customCommand != null) {
       String str1 = "ultracommand.commands." + str;
       if (!paramPlayer.hasPermission(str1) && !paramPlayer.hasPermission("ultracommand.commands.*")) {
-        paramPlayer.sendMessage(ChatColor.YELLOW + "You don't have permission for this command (" + str1 + ")");
+        paramPlayer.sendMessage(ChatColor.YELLOW + "You don't have permission for this command, If you believe you should ask an admin for the following permission. ( " + str1 + ")");
         return true;
       } 
       customCommand.execute(paramPlayer, Arrays.<String>copyOfRange(paramArrayOfString, 1, paramArrayOfString.length));
