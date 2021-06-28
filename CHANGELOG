@@ -1,3 +1,9 @@
+1.1.0:
+• Added backwards compatibility support for servers still running on 1.7 (requested by a bungeecord user with 1.7 endpoints)
+• Fixed UltraCommand's commands not responding if the plugin "Skrips" is present
+• fixed "/uc reload" printing console spam on use
+as before it's compiled with Java 8 agents the Spigot-BukkitAPI, this doesn't mean it wont work in paper, it works perfectly in paper!
+
 1.0.1:
 compatibility down to Bukkit, Spigot and Paper 1.8 and above.
 changed how and when the plugin should be loaded on startup to give UltraCommand full control over all commands you may want to create, for example you can create custom command overrides to replace any existing command! e.g. you can easily cover /op with the following example:
