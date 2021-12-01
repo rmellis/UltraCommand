@@ -1,5 +1,5 @@
 name: UltraCommand
-version: 1.1.0
+version: 1.1.1
 authors: [rmellis, Kier Davis]
 main: com.kierdavis.ultracommand.UltraCommand
 description: UltraCommand allows minecraft server admins to define unlimited custom commands.
